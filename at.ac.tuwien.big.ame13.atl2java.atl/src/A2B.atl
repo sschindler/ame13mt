@@ -1,0 +1,23 @@
+-- @path A=/at.ac.tuwien.big.ame13.atl2java.atl/model/A.ecore
+-- @path B=/at.ac.tuwien.big.ame13.atl2java.atl/model/B.ecore
+
+module A2B;
+create OUT : B from IN : A;
+
+rule Model2Model {
+	from
+		ma : A!Model
+	to 
+		mb : B!Model (
+			b <- ma.a
+		)
+}
+
+rule A2B {
+	from
+		a : A!A
+	to 
+		b : B!B (
+			id <- a.name
+		)
+}

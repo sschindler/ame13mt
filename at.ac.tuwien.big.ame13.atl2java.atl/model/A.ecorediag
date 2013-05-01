@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmi:id="_oKrnoLJ8EeKlN7fSXA0dXA" type="EcoreTools" measurementUnit="Pixel">
+  <children xmi:type="notation:Node" xmi:id="_oPJQ4LJ8EeKlN7fSXA0dXA" type="1001">
+    <children xmi:type="notation:Node" xmi:id="_oQVjsLJ8EeKlN7fSXA0dXA" type="4001"/>
+    <children xmi:type="notation:Node" xmi:id="_oQfUsLJ8EeKlN7fSXA0dXA" type="5001">
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_oQfUsbJ8EeKlN7fSXA0dXA"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_oQfUsrJ8EeKlN7fSXA0dXA"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_oQfUs7J8EeKlN7fSXA0dXA"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_oQfUtLJ8EeKlN7fSXA0dXA" type="5002">
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_oQfUtbJ8EeKlN7fSXA0dXA"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_oQfUtrJ8EeKlN7fSXA0dXA"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_oQfUt7J8EeKlN7fSXA0dXA"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_oPJQ4bJ8EeKlN7fSXA0dXA" fontColor="4210752" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+    <element xmi:type="ecore:EClass" href="A.ecore#//Model"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_oPJQ4rJ8EeKlN7fSXA0dXA" x="8" y="109"/>
+  </children>
+  <children xmi:type="notation:Node" xmi:id="_oRO7kLJ8EeKlN7fSXA0dXA" type="1001">
+    <children xmi:type="notation:Node" xmi:id="_oRO7k7J8EeKlN7fSXA0dXA" type="4001"/>
+    <children xmi:type="notation:Node" xmi:id="_oRO7lLJ8EeKlN7fSXA0dXA" type="5001">
+      <children xmi:type="notation:Node" xmi:id="_oRO7nLJ8EeKlN7fSXA0dXA" type="2001">
+        <element xmi:type="ecore:EAttribute" href="A.ecore#//A/name"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_oRO7nbJ8EeKlN7fSXA0dXA"/>
+      </children>
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_oRO7lbJ8EeKlN7fSXA0dXA"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_oRO7lrJ8EeKlN7fSXA0dXA"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_oRO7l7J8EeKlN7fSXA0dXA"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_oRO7mLJ8EeKlN7fSXA0dXA" type="5002">
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_oRO7mbJ8EeKlN7fSXA0dXA"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_oRO7mrJ8EeKlN7fSXA0dXA"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_oRO7m7J8EeKlN7fSXA0dXA"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_oRO7kbJ8EeKlN7fSXA0dXA" fontColor="4210752" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+    <element xmi:type="ecore:EClass" href="A.ecore#//A"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_oRO7krJ8EeKlN7fSXA0dXA"/>
+  </children>
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_oKrnobJ8EeKlN7fSXA0dXA"/>
+  <element xmi:type="ecore:EPackage" href="A.ecore#/"/>
+  <edges xmi:type="notation:Edge" xmi:id="_oRYskLJ8EeKlN7fSXA0dXA" type="3002" source="_oPJQ4LJ8EeKlN7fSXA0dXA" target="_oRO7kLJ8EeKlN7fSXA0dXA">
+    <children xmi:type="notation:Node" xmi:id="_oRh2g7J8EeKlN7fSXA0dXA" type="4011">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_oRh2hLJ8EeKlN7fSXA0dXA" x="-10" y="-10"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_oRh2hbJ8EeKlN7fSXA0dXA" type="4012">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_oRh2hrJ8EeKlN7fSXA0dXA" x="10" y="10"/>
+    </children>
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="_oRh2gLJ8EeKlN7fSXA0dXA" lineColor="4210752"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_oRh2gbJ8EeKlN7fSXA0dXA" fontColor="4210752" fontHeight="10"/>
+    <element xmi:type="ecore:EReference" href="A.ecore#//Model/a"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_oRh2grJ8EeKlN7fSXA0dXA" points="[0, 0, 0, 60]$[0, -60, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_oef7gLJ8EeKlN7fSXA0dXA" id="(0.5,0.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_oef7gbJ8EeKlN7fSXA0dXA" id="(0.5,1.0)"/>
+  </edges>
+</notation:Diagram>

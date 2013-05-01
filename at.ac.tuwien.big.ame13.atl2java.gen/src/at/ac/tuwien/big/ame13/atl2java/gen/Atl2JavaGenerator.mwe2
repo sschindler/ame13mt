@@ -1,0 +1,35 @@
+module at.ac.tuwien.big.ame13.atl2java.gen.Atl2JavaGenerator
+
+import org.eclipse.emf.mwe.utils.*
+
+var targetDir = "src-gen"
+var modelPath = "model"
+
+Workflow {
+
+	bean = StandaloneSetup {
+		registerGeneratedEPackage = "at.ac.tuwien.big.ame13.atl2java.atl2javamm.Atl2javaPackage"
+	}
+
+	component = DirectoryCleaner {
+		directory = targetDir
+	}
+
+	component = at.ac.tuwien.big.ame13.atl2java.gen.Atl2javaGeneratorSupport {}
+
+	component = org.eclipse.xtext.mwe.Reader {
+		path = modelPath
+		register = at.ac.tuwien.big.ame13.atl2java.gen.Atl2javaGeneratorSetup {}
+		loadResource = {
+			slot = "model"
+		}
+	}
+
+	component = org.eclipse.xtext.generator.GeneratorComponent {
+		register = at.ac.tuwien.big.ame13.atl2java.gen.Atl2javaGeneratorSetup {}
+		slot = 'model'
+		outlet = {
+			path = targetDir
+		}
+	}
+}

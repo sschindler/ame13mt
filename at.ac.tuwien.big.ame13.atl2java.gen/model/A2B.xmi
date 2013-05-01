@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="ASCII"?>
+<atl2java:Transformation
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:atl2java="http://atl2java.ame13.big.tuwien.ac.at/1.0"
+    xsi:schemaLocation="http://atl2java.ame13.big.tuwien.ac.at/1.0 ../../at.ac.tuwien.big.ame13.atl2java/model/atl2java.ecore"
+    name="A2B">
+  <rules name="Model2Model">
+    <inputPattern>
+      <inputPatternElements
+          var="ma"
+          type="Model"
+          model="A"/>
+    </inputPattern>
+    <outputPattern>
+      <outputPatternElements
+          var="mb"
+          type="Model"
+          model="B">
+        <bindings
+            feature="b"
+            value="ma.a"/>
+      </outputPatternElements>
+    </outputPattern>
+  </rules>
+  <rules name="A2B">
+    <inputPattern>
+      <inputPatternElements
+          var="a"
+          type="A"
+          model="A"/>
+    </inputPattern>
+    <outputPattern>
+      <outputPatternElements
+          var="b"
+          type="B"
+          model="B">
+        <bindings
+            feature="id"
+            value="a.name"/>
+      </outputPatternElements>
+    </outputPattern>
+  </rules>
+  <sourceModels
+      path="/testmodel/"
+      name="A"
+      metamodel="A.ecore"/>
+  <targetModels
+      path="/testmodel/"
+      name="B"
+      metamodel="B.ecore"/>
+</atl2java:Transformation>

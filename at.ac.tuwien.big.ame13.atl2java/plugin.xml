@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://atl2java.ame13.big.tuwien.ac.at/1.0"
+            class="at.ac.tuwien.big.ame13.atl2java.atl2javamm.Atl2javaPackage"
+            genModel="model/atl2java.genmodel"/>
+   </extension>
+
+</plugin>

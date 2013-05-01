@@ -10,12 +10,12 @@ public class Atl2javaGeneratorModule extends
 
 	@Override
 	protected String getLanguageName() {
-		return "at.ac.tuwien.big.me12.csv.csvmm.CSVPackage";
+		return "at.ac.tuwien.big.ame13.atl2java.atl2javamm.Atl2javaPackage";
 	}
 
 	@Override
 	protected String getFileExtensions() {
-		return "csvmodel";
+		return "xmi";
 	}
 
 	public Class<? extends IGenerator> bindIGenerator() {

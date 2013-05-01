@@ -12,7 +12,7 @@ import org.eclipse.xtext.xbase.lib.StringExtensions;
 
 @SuppressWarnings("all")
 public class Atl2javaGenerator implements IGenerator {
-  private String PACKAGE_PATH = "/at/ac/tuwien/big/ame13/atl2java/";
+  private String PACKAGE_PATH = "/at/ac/tuwien/big/ame13/atl2java/gen/";
   
   public void doGenerate(final Resource resource, final IFileSystemAccess fsa) {
     EList<EObject> _contents = resource.getContents();

@@ -7,7 +7,7 @@ import org.eclipse.emf.ecore.EObject
 import at.ac.tuwien.big.ame13.atl2java.atl2javamm.Transformation
 
 class Atl2javaGenerator implements IGenerator {
- String PACKAGE_PATH = "/at/ac/tuwien/big/ame13/atl2java/";
+ String PACKAGE_PATH = "/at/ac/tuwien/big/ame13/atl2java/gen/";
 
 	override doGenerate(Resource resource, IFileSystemAccess fsa) {
 		for(EObject object : resource.contents){

@@ -10,7 +10,6 @@
         eType="#//InputPattern" containment="true" eOpposite="#//InputPattern/rule"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="outputPattern" lowerBound="1"
         eType="#//OutputPattern" containment="true" eOpposite="#//OutputPattern/rule"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="abstract" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Transformation">
     <eStructuralFeatures xsi:type="ecore:EReference" name="rules" upperBound="-1"
@@ -26,8 +25,6 @@
         eType="#//InputPatternElement" containment="true" eOpposite="#//InputPatternElement/inputPattern"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="rule" lowerBound="1" eType="#//Rule"
         eOpposite="#//Rule/inputPattern"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="filter" eType="#//Filter"
-        containment="true" eOpposite="#//Filter/inputPattern"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="OutputPattern">
     <eStructuralFeatures xsi:type="ecore:EReference" name="outputPatternElements"
@@ -40,7 +37,6 @@
         eType="#//InputPattern" eOpposite="#//InputPattern/inputPatternElements"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="var" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="model" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="OutputPatternElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ouputPattern" lowerBound="1"
@@ -49,13 +45,6 @@
         eType="#//Binding" containment="true" eOpposite="#//Binding/outputPatternElement"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="var" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="model" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Filter">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="inputPattern" lowerBound="1"
-        eType="#//InputPattern" eOpposite="#//InputPattern/filter"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="expression" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Binding">
     <eStructuralFeatures xsi:type="ecore:EReference" name="outputPatternElement" lowerBound="1"

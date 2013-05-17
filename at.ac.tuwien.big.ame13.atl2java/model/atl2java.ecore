@@ -15,10 +15,10 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="rules" upperBound="-1"
         eType="#//Rule" containment="true" eOpposite="#//Rule/transformation"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="sourceModels" upperBound="-1"
-        eType="#//Model" containment="true" eOpposite="#//Model/transformationSource"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="targetModels" upperBound="-1"
-        eType="#//Model" containment="true" eOpposite="#//Model/transformationTarget"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sourceModel" lowerBound="1"
+        eType="#//SourceModel" containment="true" eOpposite="#//SourceModel/transformation"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="targetModel" lowerBound="1"
+        eType="#//TargetModel" containment="true" eOpposite="#//TargetModel/transformation"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="InputPattern">
     <eStructuralFeatures xsi:type="ecore:EReference" name="inputPatternElements" upperBound="-1"
@@ -46,21 +46,29 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="var" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Binding">
+  <eClassifiers xsi:type="ecore:EClass" name="Binding" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EReference" name="outputPatternElement" lowerBound="1"
         eType="#//OutputPatternElement" eOpposite="#//OutputPatternElement/bindings"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="feature" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Model">
+  <eClassifiers xsi:type="ecore:EClass" name="Model" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="path" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="metamodel" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="transformationSource" eType="#//Transformation"
-        eOpposite="#//Transformation/sourceModels"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="transformationTarget" eType="#//Transformation"
-        eOpposite="#//Transformation/targetModels"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PrimitiveBinding" eSuperTypes="#//Binding"/>
+  <eClassifiers xsi:type="ecore:EClass" name="NavigationBinding" eSuperTypes="#//Binding"/>
+  <eClassifiers xsi:type="ecore:EClass" name="OutputpatternElementBinding" eSuperTypes="#//Binding"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ResolveBinding" eSuperTypes="#//Binding"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SourceModel" eSuperTypes="#//Model">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="transformation" lowerBound="1"
+        eType="#//Transformation" eOpposite="#//Transformation/sourceModel"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TargetModel" eSuperTypes="#//Model">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="transformation" lowerBound="1"
+        eType="#//Transformation" eOpposite="#//Transformation/targetModel"/>
   </eClassifiers>
 </ecore:EPackage>

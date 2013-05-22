@@ -79,11 +79,11 @@ class Atl2javaGenerator implements IGenerator {
 			
 			// load models
 			EMFModelLoader mLoader = new EMFModelLoader();
-			Resource srcM = mLoader.loadModel("«t.sourceModels.get(0).path»«t.sourceModels.get(0).metamodel»", "testmodel/modelA.xmi");
+			Resource srcM = mLoader.loadModel("«t.sourceModel.path»«t.sourceModel.metamodel»", "testmodel/modelA.xmi");
 			
-			Resource srcMM = mLoader.loadMetamodel("«t.sourceModels.get(0).path»«t.sourceModels.get(0).metamodel»");
+			Resource srcMM = mLoader.loadMetamodel("«t.sourceModel.path»«t.sourceModel.metamodel»");
 			
-			Resource trgMM = mLoader.loadMetamodel("«t.targetModels.get(0).path»«t.targetModels.get(0).metamodel»");
+			Resource trgMM = mLoader.loadMetamodel("«t.targetModel.path»«t.targetModel.metamodel»");
 			
 			// get company factory
 			EFactory efactory = ((EPackage)trgMM.getContents().get(0)).getEFactoryInstance();
@@ -91,11 +91,11 @@ class Atl2javaGenerator implements IGenerator {
 			TransientLinkSet tls = tFactory.createTransientLinkSet();	
 			
 			// Creation Phase
-			Vector<EObject> match = getElements4Type(srcM, "«t.sourceModels.get(0).name»");
+			Vector<EObject> match = getElements4Type(srcM, "«t.sourceModel.name»");
 			Iterator<EObject> matchIter = match.iterator();	
 			while(matchIter.hasNext()){
 				EObject src = matchIter.next();
-				EObject trg = createTargetElement(trgMM, "«t.targetModels.get(0).name»");
+				EObject trg = createTargetElement(trgMM, "«t.targetModel.name»");
 				TransientLink tl = tFactory.createTransientLink();
 				TransientElement tse = tFactory.createTransientElement();
 				TransientElement tte = tFactory.createTransientElement();

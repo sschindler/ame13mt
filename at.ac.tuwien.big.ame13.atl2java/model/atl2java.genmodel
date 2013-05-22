@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/at.ac.tuwien.big.ame13.atl2java/src" modelPluginID="at.ac.tuwien.big.ame13.atl2java"
-    modelName="Atl2java" importerID="org.eclipse.emf.importer.ecore" complianceLevel="7.0"
-    copyrightFields="false">
+    modelName="Atl2java" editPluginClass="at.ac.tuwien.big.ame13.atl2java.atl2javamm.provider.Atl2javaEditPlugin"
+    editorPluginClass="at.ac.tuwien.big.ame13.atl2java.atl2javamm.presentation.Atl2javaEditorPlugin"
+    testSuiteClass="at.ac.tuwien.big.ame13.atl2java.atl2javamm.tests.Atl2javaAllTests"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="7.0" copyrightFields="false">
   <foreignModel>atl2java.ecore</foreignModel>
   <genPackages prefix="Atl2java" basePackage="at.ac.tuwien.big.ame13.atl2java" disposableProviderFactory="true"
       ecorePackage="atl2java.ecore#/">
@@ -11,18 +13,16 @@
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference atl2java.ecore#//Rule/transformation"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference atl2java.ecore#//Rule/inputPattern"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference atl2java.ecore#//Rule/outputPattern"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute atl2java.ecore#//Rule/abstract"/>
     </genClasses>
     <genClasses ecoreClass="atl2java.ecore#//Transformation">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference atl2java.ecore#//Transformation/rules"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute atl2java.ecore#//Transformation/name"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference atl2java.ecore#//Transformation/sourceModels"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference atl2java.ecore#//Transformation/targetModels"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference atl2java.ecore#//Transformation/sourceModel"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference atl2java.ecore#//Transformation/targetModel"/>
     </genClasses>
     <genClasses ecoreClass="atl2java.ecore#//InputPattern">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference atl2java.ecore#//InputPattern/inputPatternElements"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference atl2java.ecore#//InputPattern/rule"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference atl2java.ecore#//InputPattern/filter"/>
     </genClasses>
     <genClasses ecoreClass="atl2java.ecore#//OutputPattern">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference atl2java.ecore#//OutputPattern/outputPatternElements"/>
@@ -32,30 +32,32 @@
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference atl2java.ecore#//InputPatternElement/inputPattern"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute atl2java.ecore#//InputPatternElement/var"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute atl2java.ecore#//InputPatternElement/type"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute atl2java.ecore#//InputPatternElement/model"/>
     </genClasses>
     <genClasses ecoreClass="atl2java.ecore#//OutputPatternElement">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference atl2java.ecore#//OutputPatternElement/ouputPattern"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference atl2java.ecore#//OutputPatternElement/bindings"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute atl2java.ecore#//OutputPatternElement/var"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute atl2java.ecore#//OutputPatternElement/type"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute atl2java.ecore#//OutputPatternElement/model"/>
     </genClasses>
-    <genClasses ecoreClass="atl2java.ecore#//Filter">
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference atl2java.ecore#//Filter/inputPattern"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute atl2java.ecore#//Filter/expression"/>
-    </genClasses>
-    <genClasses ecoreClass="atl2java.ecore#//Binding">
+    <genClasses image="false" ecoreClass="atl2java.ecore#//Binding">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference atl2java.ecore#//Binding/outputPatternElement"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute atl2java.ecore#//Binding/feature"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute atl2java.ecore#//Binding/value"/>
     </genClasses>
-    <genClasses ecoreClass="atl2java.ecore#//Model">
+    <genClasses image="false" ecoreClass="atl2java.ecore#//Model">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute atl2java.ecore#//Model/path"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute atl2java.ecore#//Model/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute atl2java.ecore#//Model/metamodel"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference atl2java.ecore#//Model/transformationSource"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference atl2java.ecore#//Model/transformationTarget"/>
+    </genClasses>
+    <genClasses ecoreClass="atl2java.ecore#//PrimitiveBinding"/>
+    <genClasses ecoreClass="atl2java.ecore#//NavigationBinding"/>
+    <genClasses ecoreClass="atl2java.ecore#//OutputpatternElementBinding"/>
+    <genClasses ecoreClass="atl2java.ecore#//ResolveBinding"/>
+    <genClasses ecoreClass="atl2java.ecore#//SourceModel">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference atl2java.ecore#//SourceModel/transformation"/>
+    </genClasses>
+    <genClasses ecoreClass="atl2java.ecore#//TargetModel">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference atl2java.ecore#//TargetModel/transformation"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

@@ -5,52 +5,38 @@ import org.eclipse.xtext.generator.IFileSystemAccess
 import org.eclipse.xtext.generator.IGenerator
 import org.eclipse.emf.ecore.EObject
 import at.ac.tuwien.big.ame13.atl2java.atl2javamm.Transformation
+import at.ac.tuwien.big.ame13.atl2java.atl2javamm.Rule
+import at.ac.tuwien.big.ame13.atl2java.atl2javamm.InputPatternElement
+import at.ac.tuwien.big.ame13.atl2java.atl2javamm.OutputPatternElement
+import at.ac.tuwien.big.ame13.atl2java.atl2javamm.NavigationBinding
+import at.ac.tuwien.big.ame13.atl2java.atl2javamm.ResolveBinding
+import at.ac.tuwien.big.ame13.atl2java.atl2javamm.PrimitiveBinding
+import at.ac.tuwien.big.ame13.atl2java.atl2javamm.OutputpatternElementBinding
+import at.ac.tuwien.big.ame13.atl2java.atl2javamm.Binding
 
 class Atl2javaGenerator implements IGenerator {
- String PACKAGE_PATH = "/at/ac/tuwien/big/ame13/atl2java/gen/";
+	
+	String PACKAGE_PATH = "/at/ac/tuwien/big/ame13/atl2java/gen/";
 
 	override doGenerate(Resource resource, IFileSystemAccess fsa) {
-		for(EObject object : resource.contents){
+		for(EObject object : resource.contents) {
 			var Transformation t = object as Transformation;
 			fsa.generateFile('''«PACKAGE_PATH»«t.name.toFirstUpper»Transformation.java''',t.generateTransformationCode);
 		}
-     }
-     
-
-    def generateTransformationCode(Transformation t)'''
+	}
+	
+	def generateTransformationCode(Transformation t)'''
 	package at.ac.tuwien.big.ame13.atl2java.gen;
 	
-	// ATL code to be expressed as Java Code
-	
-	//-- @path MM=/A2B/A.ecore
-	//-- @path MM1=/A2B/B.ecore
-	//
-	//module A2B;
-	//create OUT : MM1 from IN : MM;
-	//
-	//rule Model2Model {
-	//	from
-	//		modelA : MM!Model
-	//	to 
-	//		modelB : MM1!Model (
-	//			b <- modelA.a
-	//		)
-	//}
-	//
-	//rule A2B {
-	//	from
-	//		a : MM!A
-	//	to 
-	//		b : MM1!B (
-	//			id <- a.name
-	//		)
-	//}
-	
-	
 	import java.io.IOException;
+	import java.util.ArrayList;
+	import java.util.Collections;
+	import java.util.HashMap;
 	import java.util.Iterator;
+	import java.util.Set;
 	import java.util.Vector;
 	
+	import org.eclipse.emf.common.util.EList;
 	import org.eclipse.emf.common.util.TreeIterator;
 	import org.eclipse.emf.common.util.URI;
 	import org.eclipse.emf.ecore.EClass;
@@ -71,89 +57,199 @@ class Atl2javaGenerator implements IGenerator {
 	
 	import at.ac.tuwien.big.ame13.atl2java.gen.utility.EMFModelLoader;
 	
-	
 	public class «t.name.toFirstUpper»Transformation {
-	
 	
 		public static void main(String[] args) throws IOException {
 			
 			// load models
 			EMFModelLoader mLoader = new EMFModelLoader();
-			Resource srcM = mLoader.loadModel("«t.sourceModel.path»«t.sourceModel.metamodel»", "testmodel/modelA.xmi");
+			Resource srcM = mLoader.loadModel("«t.sourceModel.path»/«t.sourceModel.metamodel»", "testmodel/modelA.xmi");
 			
-			Resource srcMM = mLoader.loadMetamodel("«t.sourceModel.path»«t.sourceModel.metamodel»");
+			// Resource srcMM = mLoader.loadMetamodel("«t.sourceModel.path»/«t.sourceModel.metamodel»");
 			
-			Resource trgMM = mLoader.loadMetamodel("«t.targetModel.path»«t.targetModel.metamodel»");
+			Resource trgMM = mLoader.loadMetamodel("«t.targetModel.path»/«t.targetModel.metamodel»");
 			
 			// get company factory
-			EFactory efactory = ((EPackage)trgMM.getContents().get(0)).getEFactoryInstance();
 			TracemodelFactory tFactory = TracemodelFactory.eINSTANCE;
-			TransientLinkSet tls = tFactory.createTransientLinkSet();	
+			TransientLinkSet tls = tFactory.createTransientLinkSet();
 			
-			// Creation Phase
-			Vector<EObject> match = getElements4Type(srcM, "«t.sourceModel.name»");
-			Iterator<EObject> matchIter = match.iterator();	
-			while(matchIter.hasNext()){
-				EObject src = matchIter.next();
-				EObject trg = createTargetElement(trgMM, "«t.targetModel.name»");
-				TransientLink tl = tFactory.createTransientLink();
-				TransientElement tse = tFactory.createTransientElement();
-				TransientElement tte = tFactory.createTransientElement();
-				tse.setValue(src);
-				tte.setValue(trg);
-				tl.getSourceElements().add(tse);
-				tl.getTargetElements().add(tte);
-				tls.getTransientLinks().add(tl);
+			/**
+		 	 * creation phase
+		 	 */
+			// get all elements from the source model
+			
+			HashMap<String,Vector<EObject>> sourceElements = new HashMap<String,Vector<EObject>>();
+			
+			TreeIterator<EObject> iter = srcM.getAllContents();
+			Vector<EObject> temp;
+			while(iter.hasNext()) {
+				EObject obj = iter.next();
+				if(sourceElements.containsKey(obj.eClass().getName())) {
+					temp = sourceElements.get(obj.eClass().getName());
+					temp.add(obj);
+					sourceElements.put(obj.eClass().getName(), temp);
+				} else {
+					temp = new Vector<EObject>();
+					temp.add(obj);
+					sourceElements.put(obj.eClass().getName(), temp);
+				}
+			}
+			
+			/**
+		 	 * creation helpers:
+		 	 */
+			// list with number of each element type's occurrence
+			ArrayList<Integer> sizeList;
+			// minimum number of all element type's occurrence
+			int minSize;
+			// transient link
+			TransientLink tl;
+			// source object
+			EObject srcObj;
+			// target object
+			EObject trgObj;
+			// transient source element
+			TransientElement tse;
+			// transient target element
+			TransientElement tte;
+			
+			/**
+		 	 * initialization helpers:
+		 	 */
+			EStructuralFeature pBF;
+			// HashMap<trgObject,HashMap<trgFeature,navigation_value>
+			HashMap<EObject,HashMap<String,String>> nBindings = new HashMap<EObject,HashMap<String,String>>();
+			HashMap<String,String> nBHM;
+			
+			// problem when pre-creating vectors with all input/output pattern elements:
+			// no pre-knowledge about the numbers of input/output pattern elements to create correct number of vectors
+			
+			«FOR Rule rule : t.rules»
+			sizeList = new ArrayList<Integer>();
+				«FOR InputPatternElement ipe : rule.inputPattern.inputPatternElements»
+				Vector<EObject> srcElements«ipe.type» = sourceElements.get("«ipe.type»");
+				sizeList.add(srcElements«ipe.type».size());
+				«ENDFOR»
+			Collections.sort(sizeList);
+			minSize = sizeList.get(0);
+
+			for(int i = 0; i < minSize; i++) {
+				// further problem: how should we know which input element we should take, e.g. for the binding (if we have several input pattern elements;
+				// just the smallest occurrences of the input elements are matched)
 				
-			}
-			
-			match = getElements4Type(srcM, "Model");
-			matchIter = match.iterator();
-			while(matchIter.hasNext()){
-				EObject src = matchIter.next();
-				EObject trg = createTargetElement(trgMM, "Model");
-				TransientLink tl = tFactory.createTransientLink();
-				TransientElement tse = tFactory.createTransientElement();
-				TransientElement tte = tFactory.createTransientElement();
-				tse.setValue(src);
-				tte.setValue(trg);
+				tl = tFactory.createTransientLink();
+				
+				// saving all transient source elements in the link
+				«FOR InputPatternElement ipe : rule.inputPattern.inputPatternElements»
+				srcObj = srcElements«ipe.type».get(i);
+				tse = tFactory.createTransientElement();
+				tse.setValue(srcObj);
+				tse.setVar("«ipe.^var»");
 				tl.getSourceElements().add(tse);
+				«ENDFOR»
+
+				«FOR OutputPatternElement ope : rule.outputPattern.outputPatternElements»
+				trgObj = createTargetElement(trgMM, "«ope.type»");
+				tte = tFactory.createTransientElement();
+				tte.setValue(trgObj);
+				tte.setVar("«ope.^var»");
 				tl.getTargetElements().add(tte);
+				
+				// Binding phase start
+				«FOR Binding binding : ope.bindings»
+				«IF binding instanceof PrimitiveBinding»
+				pBF = trgObj.eClass().getEStructuralFeature("«binding.feature»");
+				trgObj.eSet(pBF, "«binding.value»");
+				«ELSEIF binding instanceof NavigationBinding»
+				if(nBindings.containsKey(trgObj)) {
+					nBHM = nBindings.get(trgObj);
+					if(!nBHM.containsKey("«binding.feature»")) {
+						nBHM.put("«binding.feature»", "«binding.value»");
+						nBindings.put(trgObj, nBHM);
+					}
+				} else {
+					nBHM = new HashMap<String,String>();
+					nBHM.put("«binding.feature»", "«binding.value»");
+					nBindings.put(trgObj, nBHM);
+				}
+				«ELSEIF binding instanceof OutputpatternElementBinding»
+				
+				«ENDIF»
+				«ENDFOR»
+				// Binding phase end
+				
+				«ENDFOR»
+				
 				tls.getTransientLinks().add(tl);
 			}
+			«ENDFOR»
 			
-			// Initialization Phase 
+			/**
+		 	 * initialization phase
+		 	 */
+			«IF t.rules.get(0).outputPattern.outputPatternElements.get(0).bindings.get(0) instanceof ResolveBinding»
+			// IST EIN RESOLVEBINDING
+			«ENDIF»
 			Iterator<TransientLink> traces = tls.getTransientLinks().iterator();
-			while(traces.hasNext()){
-				TransientLink tl = traces.next();
+			while(traces.hasNext()) {
+				tl = traces.next();
 				Iterator<TransientElement> teIter = tl.getTargetElements().iterator();
-				while(teIter.hasNext()){
+				while(teIter.hasNext()) {
+					// target object
 					EObject obj = teIter.next().getValue();
-					if(obj.eClass().getName().equals("Model")){
-						EStructuralFeature f = obj.eClass().getEStructuralFeature("b");
-						Vector<EObject> trgObjs = new Vector<EObject>();
-						Vector<EObject> srcObjs = getElements4Type(srcM, "A");
-						Iterator<EObject> srcObjsIter = srcObjs.iterator();
-						while(srcObjsIter.hasNext()){
-							EObject srcObj = srcObjsIter.next();
-							TransientLink tlTemp = tls.getLinkBySourceElement(srcObj);
-							trgObjs.add(tlTemp.getTargetElements().get(0).getValue());
+					if(nBindings.containsKey(obj)) {
+						HashMap<String,String> nBinding = nBindings.get(obj);
+						Set<String> nBindingFeatures = nBinding.keySet();
+						for(String nBindingFeature : nBindingFeatures) {
+							EStructuralFeature f = obj.eClass().getEStructuralFeature(nBindingFeature);
+							String[] navigation = nBinding.get(nBindingFeature).split("\\.");
+							
+							EObject navElement = null;
+							// TODO tl.getSourceElementByVar(navigation[0]) in TransientLinkImpl.java faulty (getValue() instead of getVar())
+							EList<TransientElement> testList = tl.getSourceElements();
+							for(TransientElement testTE : testList) {
+								if(testTE.getVar().equals(navigation[0])) {
+									navElement = testTE.getValue();
+									break;
+								}
+							}
+							
+							if(navElement == null) {
+								// navigation by target element
+								testList = tl.getTargetElements();
+								for(TransientElement testTE : testList) {
+									if(testTE.getVar().equals(navigation[0])) {
+										navElement = testTE.getValue();
+										break;
+									}
+								}
+							}
+							
+							EStructuralFeature f2 = navElement.eClass().getEStructuralFeature(navigation[1]);
+							Object f2Value = navElement.eGet(f2);
+							if(f2Value instanceof String) {
+								obj.eSet(f, f2Value);
+							} else if(f2Value instanceof EList) {
+								EList<EObject> f2List = (EList<EObject>) f2Value;
+								Vector<EObject> f2TList = new Vector<EObject>();
+								for(EObject srcElement : f2List) {
+									TransientLink tlTemp = tls.getLinkBySourceElement(srcElement);
+									EList<TransientElement> targets = tlTemp.getTargetElements();
+									for(TransientElement target : targets) {
+										f2TList.add(target.getValue());
+									}
+								}
+								obj.eSet(f, f2TList);
+							}
 						}
-						obj.eSet(f, trgObjs);
-					}
-					else if(obj.eClass().getName().equals("B")){
-						EStructuralFeature f = obj.eClass().getEStructuralFeature("id");
-						EStructuralFeature f2 = tl.getSourceElements().get(0).getValue().eClass().getEStructuralFeature("name");
-						obj.eSet(f, tl.getSourceElements().get(0).getValue().eGet(f2));
 					}
 				}
 			}
-					
-			EObject rootElement = EcoreUtil.getRootContainer( tls.getTransientLinks().get(0).getTargetElements().get(0).getValue());
+			
+			EObject rootElement = EcoreUtil.getRootContainer(tls.getTransientLinks().get(0).getTargetElements().get(0).getValue());
 			saveResource(rootElement);
 		}
 	
-		
 		private static EObject createTargetElement(Resource MM, String className) {
 			EFactory efactory = ((EPackage)MM.getContents().get(0)).getEFactoryInstance();
 			EClass clazz = getEClassFromMM(MM, className);
@@ -161,20 +257,18 @@ class Atl2javaGenerator implements IGenerator {
 			return obj;
 		}
 	
-	
 		private static Vector<EObject> getElements4Type(Resource srcM, String typeName) {
 			Vector<EObject> match = new Vector<EObject>();
 			
 			TreeIterator<EObject> iter = srcM.getAllContents();
-			while(iter.hasNext()){
+			while(iter.hasNext()) {
 				EObject obj = iter.next();
-				if(obj.eClass().getName().equals(typeName)){
+				if(obj.eClass().getName().equals(typeName)) {
 					match.add(obj);
 				}
 			}
 			return match;
 		}
-	
 	
 		private static void saveResource(EObject rootElement) throws IOException {
 			ResourceSet resourceSet = new ResourceSetImpl();
@@ -184,23 +278,20 @@ class Atl2javaGenerator implements IGenerator {
 			resource.save(null);
 		}
 	
-		
-		public static EClass getEClassFromMM(Resource MM, String className){
+		public static EClass getEClassFromMM(Resource MM, String className) {
 			
 			TreeIterator<EObject> iter = MM.getAllContents();
-			while(iter.hasNext()){
+			while(iter.hasNext()) {
 				EObject obj = iter.next();
-				if(obj instanceof EClass){
+				if(obj instanceof EClass) {
 					EClass clazz = (EClass) obj;
-					if(clazz.getName().equals(className)){
+					if(clazz.getName().equals(className)) {
 						return clazz;
 					}
 				}
 			}
 			return null;
 		}
-		
-		
 	}
-    '''   
+	'''
 }

@@ -10,15 +10,14 @@
     <inputPattern>
       <inputPatternElements
           var="ma"
-          type="Model"
-          model="A"/>
+          type="Model"/>
     </inputPattern>
     <outputPattern>
       <outputPatternElements
           var="mb"
-          type="Model"
-          model="B">
+          type="Model">
         <bindings
+            xsi:type="atl2java:NavigationBinding"
             feature="b"
             value="ma.a"/>
       </outputPatternElements>
@@ -28,26 +27,25 @@
     <inputPattern>
       <inputPatternElements
           var="a"
-          type="A"
-          model="A"/>
+          type="A"/>
     </inputPattern>
     <outputPattern>
       <outputPatternElements
           var="b"
-          type="B"
-          model="B">
+          type="B">
         <bindings
+            xsi:type="atl2java:NavigationBinding"
             feature="id"
             value="a.name"/>
       </outputPatternElements>
     </outputPattern>
   </rules>
-  <sourceModels
-      path="/testmodel/"
+  <sourceModel
+      path="testmodel"
       name="A"
       metamodel="A.ecore"/>
-  <targetModels
-      path="/testmodel/"
+  <targetModel
+      path="testmodel"
       name="B"
       metamodel="B.ecore"/>
 </atl2java:Transformation>

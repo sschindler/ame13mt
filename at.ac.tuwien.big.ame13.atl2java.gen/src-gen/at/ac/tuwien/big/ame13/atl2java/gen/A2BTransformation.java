@@ -92,9 +92,8 @@ public class A2BTransformation {
 		// HashMap<trgObject,HashMap<trgFeature,navigation_value>
 		HashMap<EObject,HashMap<String,String>> nBindings = new HashMap<EObject,HashMap<String,String>>();
 		HashMap<String,String> nBHM;
-		
-		// problem when pre-creating vectors with all input/output pattern elements:
-		// no pre-knowledge about the numbers of input/output pattern elements to create correct number of vectors
+		HashMap<EObject,HashMap<String,String>> oPEBindings = new HashMap<EObject,HashMap<String,String>>();
+		HashMap<String,String> oPEBHM;
 		
 		sizeList = new ArrayList<Integer>();
 			Vector<EObject> srcElementsModel = sourceElements.get("Model");
@@ -121,7 +120,6 @@ public class A2BTransformation {
 			tte.setVar("mb");
 			tl.getTargetElements().add(tte);
 			
-			// Binding phase start
 			if(nBindings.containsKey(trgObj)) {
 				nBHM = nBindings.get(trgObj);
 				if(!nBHM.containsKey("b")) {
@@ -133,9 +131,6 @@ public class A2BTransformation {
 				nBHM.put("b", "ma.a");
 				nBindings.put(trgObj, nBHM);
 			}
-			// Binding phase end
-			
-			
 			tls.getTransientLinks().add(tl);
 		}
 		sizeList = new ArrayList<Integer>();
@@ -163,7 +158,6 @@ public class A2BTransformation {
 			tte.setVar("b");
 			tl.getTargetElements().add(tte);
 			
-			// Binding phase start
 			if(nBindings.containsKey(trgObj)) {
 				nBHM = nBindings.get(trgObj);
 				if(!nBHM.containsKey("id")) {
@@ -175,9 +169,6 @@ public class A2BTransformation {
 				nBHM.put("id", "a.name");
 				nBindings.put(trgObj, nBHM);
 			}
-			// Binding phase end
-			
-			
 			tls.getTransientLinks().add(tl);
 		}
 		
@@ -235,6 +226,27 @@ public class A2BTransformation {
 							}
 							obj.eSet(f, f2TList);
 						}
+					}
+				}
+				if(oPEBindings.containsKey(obj)) {
+					HashMap<String,String> oPEBinding = oPEBindings.get(obj);
+					Set<String> oPEBindingFeatures = oPEBinding.keySet();
+					for(String oPEBindingFeature : oPEBindingFeatures) {
+						EStructuralFeature f = obj.eClass().getEStructuralFeature(oPEBindingFeature);
+						String var = oPEBinding.get(oPEBindingFeature);
+						
+						EObject varElement = null;
+						
+						// search target elements
+						EList<TransientElement> testList = tl.getTargetElements();
+						for(TransientElement testTE : testList) {
+							if(testTE.getVar().equals(var)) {
+								varElement = testTE.getValue();
+								break;
+							}
+						}
+						
+						obj.eSet(f, varElement);
 					}
 				}
 			}

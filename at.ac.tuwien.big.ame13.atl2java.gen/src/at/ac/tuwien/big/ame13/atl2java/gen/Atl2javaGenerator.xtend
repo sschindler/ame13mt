@@ -120,9 +120,8 @@ class Atl2javaGenerator implements IGenerator {
 			// HashMap<trgObject,HashMap<trgFeature,navigation_value>
 			HashMap<EObject,HashMap<String,String>> nBindings = new HashMap<EObject,HashMap<String,String>>();
 			HashMap<String,String> nBHM;
-			
-			// problem when pre-creating vectors with all input/output pattern elements:
-			// no pre-knowledge about the numbers of input/output pattern elements to create correct number of vectors
+			HashMap<EObject,HashMap<String,String>> oPEBindings = new HashMap<EObject,HashMap<String,String>>();
+			HashMap<String,String> oPEBHM;
 			
 			«FOR Rule rule : t.rules»
 			sizeList = new ArrayList<Integer>();
@@ -155,7 +154,6 @@ class Atl2javaGenerator implements IGenerator {
 				tte.setVar("«ope.^var»");
 				tl.getTargetElements().add(tte);
 				
-				// Binding phase start
 				«FOR Binding binding : ope.bindings»
 				«IF binding instanceof PrimitiveBinding»
 				pBF = trgObj.eClass().getEStructuralFeature("«binding.feature»");
@@ -173,13 +171,20 @@ class Atl2javaGenerator implements IGenerator {
 					nBindings.put(trgObj, nBHM);
 				}
 				«ELSEIF binding instanceof OutputpatternElementBinding»
-				
+				if(oPEBindings.containsKey(trgObj)) {
+					oPEBHM = oPEBindings.get(trgObj);
+					if(!oPEBHM.containsKey("«binding.feature»")) {
+						oPEBHM.put("«binding.feature»", "«binding.value»");
+						oPEBindings.put(trgObj, oPEBHM);
+					}
+				} else {
+					oPEBHM = new HashMap<String,String>();
+					oPEBHM.put("«binding.feature»", "«binding.value»");
+					oPEBindings.put(trgObj, oPEBHM);
+				}
 				«ENDIF»
 				«ENDFOR»
-				// Binding phase end
-				
 				«ENDFOR»
-				
 				tls.getTransientLinks().add(tl);
 			}
 			«ENDFOR»
@@ -241,6 +246,27 @@ class Atl2javaGenerator implements IGenerator {
 								}
 								obj.eSet(f, f2TList);
 							}
+						}
+					}
+					if(oPEBindings.containsKey(obj)) {
+						HashMap<String,String> oPEBinding = oPEBindings.get(obj);
+						Set<String> oPEBindingFeatures = oPEBinding.keySet();
+						for(String oPEBindingFeature : oPEBindingFeatures) {
+							EStructuralFeature f = obj.eClass().getEStructuralFeature(oPEBindingFeature);
+							String var = oPEBinding.get(oPEBindingFeature);
+							
+							EObject varElement = null;
+							
+							// search target elements
+							EList<TransientElement> testList = tl.getTargetElements();
+							for(TransientElement testTE : testList) {
+								if(testTE.getVar().equals(var)) {
+									varElement = testTE.getValue();
+									break;
+								}
+							}
+							
+							obj.eSet(f, varElement);
 						}
 					}
 				}

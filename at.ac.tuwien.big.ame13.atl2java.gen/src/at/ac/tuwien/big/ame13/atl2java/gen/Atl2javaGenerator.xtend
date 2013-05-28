@@ -59,6 +59,7 @@ class Atl2javaGenerator implements IGenerator {
 	
 	public class «t.name.toFirstUpper»Transformation {
 	
+		@SuppressWarnings({ "unused", "unchecked" })
 		public static void main(String[] args) throws IOException {
 			
 			// load models
@@ -120,8 +121,15 @@ class Atl2javaGenerator implements IGenerator {
 			// HashMap<trgObject,HashMap<trgFeature,navigation_value>
 			HashMap<EObject,HashMap<String,String>> nBindings = new HashMap<EObject,HashMap<String,String>>();
 			HashMap<String,String> nBHM;
+			// HashMap<trgObject,HashMap<trgFeature,outputpatternelement_value>
 			HashMap<EObject,HashMap<String,String>> oPEBindings = new HashMap<EObject,HashMap<String,String>>();
 			HashMap<String,String> oPEBHM;
+			// HashMap<trgObject,HashMap<trgFeature,resolution_value>
+			HashMap<EObject,HashMap<String,String>> rBindings = new HashMap<EObject,HashMap<String,String>>();
+			HashMap<String,String> rBHM;
+			
+			// HashMap<srcObject,transientlink>
+			HashMap<EObject,TransientLink> tLinkBySrcObj = new HashMap<EObject,TransientLink>();
 			
 			«FOR Rule rule : t.rules»
 			sizeList = new ArrayList<Integer>();
@@ -145,6 +153,7 @@ class Atl2javaGenerator implements IGenerator {
 				tse.setValue(srcObj);
 				tse.setVar("«ipe.^var»");
 				tl.getSourceElements().add(tse);
+				tLinkBySrcObj.put(srcObj, tl);
 				«ENDFOR»
 
 				«FOR OutputPatternElement ope : rule.outputPattern.outputPatternElements»
@@ -182,6 +191,18 @@ class Atl2javaGenerator implements IGenerator {
 					oPEBHM.put("«binding.feature»", "«binding.value»");
 					oPEBindings.put(trgObj, oPEBHM);
 				}
+				«ELSEIF binding instanceof ResolveBinding»
+				if(rBindings.containsKey(trgObj)) {
+					rBHM = rBindings.get(trgObj);
+					if(!rBHM.containsKey("«binding.feature»")) {
+						rBHM.put("«binding.feature»", "«binding.value»");
+						rBindings.put(trgObj, rBHM);
+					}
+				} else {
+					rBHM = new HashMap<String,String>();
+					rBHM.put("«binding.feature»", "«binding.value»");
+					rBindings.put(trgObj, rBHM);
+				}
 				«ENDIF»
 				«ENDFOR»
 				«ENDFOR»
@@ -192,9 +213,6 @@ class Atl2javaGenerator implements IGenerator {
 			/**
 		 	 * initialization phase
 		 	 */
-			«IF t.rules.get(0).outputPattern.outputPatternElements.get(0).bindings.get(0) instanceof ResolveBinding»
-			// IST EIN RESOLVEBINDING
-			«ENDIF»
 			Iterator<TransientLink> traces = tls.getTransientLinks().iterator();
 			while(traces.hasNext()) {
 				tl = traces.next();
@@ -211,20 +229,20 @@ class Atl2javaGenerator implements IGenerator {
 							
 							EObject navElement = null;
 							// TODO tl.getSourceElementByVar(navigation[0]) in TransientLinkImpl.java faulty (getValue() instead of getVar())
-							EList<TransientElement> testList = tl.getSourceElements();
-							for(TransientElement testTE : testList) {
-								if(testTE.getVar().equals(navigation[0])) {
-									navElement = testTE.getValue();
+							EList<TransientElement> tempList = tl.getSourceElements();
+							for(TransientElement tempTE : tempList) {
+								if(tempTE.getVar().equals(navigation[0])) {
+									navElement = tempTE.getValue();
 									break;
 								}
 							}
 							
 							if(navElement == null) {
 								// navigation by target element
-								testList = tl.getTargetElements();
-								for(TransientElement testTE : testList) {
-									if(testTE.getVar().equals(navigation[0])) {
-										navElement = testTE.getValue();
+								tempList = tl.getTargetElements();
+								for(TransientElement tempTE : tempList) {
+									if(tempTE.getVar().equals(navigation[0])) {
+										navElement = tempTE.getValue();
 										break;
 									}
 								}
@@ -232,20 +250,8 @@ class Atl2javaGenerator implements IGenerator {
 							
 							EStructuralFeature f2 = navElement.eClass().getEStructuralFeature(navigation[1]);
 							Object f2Value = navElement.eGet(f2);
-							if(f2Value instanceof String) {
-								obj.eSet(f, f2Value);
-							} else if(f2Value instanceof EList) {
-								EList<EObject> f2List = (EList<EObject>) f2Value;
-								Vector<EObject> f2TList = new Vector<EObject>();
-								for(EObject srcElement : f2List) {
-									TransientLink tlTemp = tls.getLinkBySourceElement(srcElement);
-									EList<TransientElement> targets = tlTemp.getTargetElements();
-									for(TransientElement target : targets) {
-										f2TList.add(target.getValue());
-									}
-								}
-								obj.eSet(f, f2TList);
-							}
+							// f2Value instanceof String
+							obj.eSet(f, f2Value);
 						}
 					}
 					if(oPEBindings.containsKey(obj)) {
@@ -258,15 +264,84 @@ class Atl2javaGenerator implements IGenerator {
 							EObject varElement = null;
 							
 							// search target elements
-							EList<TransientElement> testList = tl.getTargetElements();
-							for(TransientElement testTE : testList) {
-								if(testTE.getVar().equals(var)) {
-									varElement = testTE.getValue();
+							EList<TransientElement> tempList = tl.getTargetElements();
+							for(TransientElement tempTE : tempList) {
+								if(tempTE.getVar().equals(var)) {
+									varElement = tempTE.getValue();
 									break;
 								}
 							}
 							
 							obj.eSet(f, varElement);
+						}
+					}
+					if(rBindings.containsKey(obj)) {
+						HashMap<String,String> rBinding = rBindings.get(obj);
+						Set<String> rBindingFeatures = rBinding.keySet();
+						for(String rBindingFeature : rBindingFeatures) {
+							EStructuralFeature f = obj.eClass().getEStructuralFeature(rBindingFeature);
+							String[] navigation = rBinding.get(rBindingFeature).split("\\.");
+							
+							EObject resElement = null;
+							EList<TransientElement> tempList = tl.getSourceElements();
+							for(TransientElement tempTE : tempList) {
+								if(tempTE.getVar().equals(navigation[0])) {
+									resElement = tempTE.getValue();
+									break;
+								}
+							}
+							
+							boolean resFromTargetElements = false;
+							
+							if(resElement == null) {
+								// resolving by target element
+								tempList = tl.getTargetElements();
+								for(TransientElement tempTE : tempList) {
+									if(tempTE.getVar().equals(navigation[0])) {
+										resElement = tempTE.getValue();
+										resFromTargetElements = true;
+										break;
+									}
+								}
+							}
+							
+							EStructuralFeature f2 = resElement.eClass().getEStructuralFeature(navigation[1]);
+							Object f2Value = resElement.eGet(f2);
+							// TODO Test for EObject or Object
+							if(f2Value instanceof EObject) {
+								if(!resFromTargetElements) {
+									EObject f2Object = (EObject) f2Value;
+									TransientLink tlTemp = tLinkBySrcObj.get(f2Object);
+									EList<TransientElement> targets = tlTemp.getTargetElements();
+									if(targets.size() > 1) {
+										Vector<EObject> f2TList = new Vector<EObject>();
+										for(TransientElement target : targets) {
+											f2TList.add(target.getValue());
+										}
+										obj.eSet(f, f2TList);
+									} else {
+										EObject f2TObject = targets.get(0).getValue();
+										obj.eSet(f, f2TObject);
+									}
+								} else {
+									obj.eSet(f, f2Value);
+								}
+							} else if(f2Value instanceof EList) {
+								if(!resFromTargetElements) {
+									EList<EObject> f2List = (EList<EObject>) f2Value;
+									Vector<EObject> f2TList = new Vector<EObject>();
+									for(EObject srcElement : f2List) {
+										TransientLink tlTemp = tLinkBySrcObj.get(srcElement);
+										EList<TransientElement> targets = tlTemp.getTargetElements();
+										for(TransientElement target : targets) {
+											f2TList.add(target.getValue());
+										}
+									}
+									obj.eSet(f, f2TList);
+								} else {
+									obj.eSet(f, f2Value);
+								}
+							}
 						}
 					}
 				}
@@ -283,6 +358,7 @@ class Atl2javaGenerator implements IGenerator {
 			return obj;
 		}
 	
+		@SuppressWarnings("unused")
 		private static Vector<EObject> getElements4Type(Resource srcM, String typeName) {
 			Vector<EObject> match = new Vector<EObject>();
 			

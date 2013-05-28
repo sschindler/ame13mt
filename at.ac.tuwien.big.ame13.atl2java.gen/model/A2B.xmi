@@ -17,7 +17,7 @@
           var="mb"
           type="Model">
         <bindings
-            xsi:type="atl2java:NavigationBinding"
+            xsi:type="atl2java:ResolveBinding"
             feature="b"
             value="ma.a"/>
       </outputPatternElements>

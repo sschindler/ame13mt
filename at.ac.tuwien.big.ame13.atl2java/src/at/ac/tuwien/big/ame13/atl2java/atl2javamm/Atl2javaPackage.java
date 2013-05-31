@@ -277,13 +277,22 @@ public interface Atl2javaPackage extends EPackage {
 	int INPUT_PATTERN_ELEMENT__TYPE = 2;
 
 	/**
+	 * The feature id for the '<em><b>Metamodel</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INPUT_PATTERN_ELEMENT__METAMODEL = 3;
+
+	/**
 	 * The number of structural features of the '<em>Input Pattern Element</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INPUT_PATTERN_ELEMENT_FEATURE_COUNT = 3;
+	int INPUT_PATTERN_ELEMENT_FEATURE_COUNT = 4;
 
 	/**
 	 * The meta object id for the '{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.impl.OutputPatternElementImpl <em>Output Pattern Element</em>}' class.
@@ -332,13 +341,22 @@ public interface Atl2javaPackage extends EPackage {
 	int OUTPUT_PATTERN_ELEMENT__TYPE = 3;
 
 	/**
+	 * The feature id for the '<em><b>Metamodel</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OUTPUT_PATTERN_ELEMENT__METAMODEL = 4;
+
+	/**
 	 * The number of structural features of the '<em>Output Pattern Element</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OUTPUT_PATTERN_ELEMENT_FEATURE_COUNT = 4;
+	int OUTPUT_PATTERN_ELEMENT_FEATURE_COUNT = 5;
 
 	/**
 	 * The meta object id for the '{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.impl.BindingImpl <em>Binding</em>}' class.
@@ -369,22 +387,13 @@ public interface Atl2javaPackage extends EPackage {
 	int BINDING__FEATURE = 1;
 
 	/**
-	 * The feature id for the '<em><b>Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BINDING__VALUE = 2;
-
-	/**
 	 * The number of structural features of the '<em>Binding</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BINDING_FEATURE_COUNT = 3;
+	int BINDING_FEATURE_COUNT = 2;
 
 	/**
 	 * The meta object id for the '{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.impl.ModelImpl <em>Model</em>}' class.
@@ -467,7 +476,7 @@ public interface Atl2javaPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PRIMITIVE_BINDING__VALUE = BINDING__VALUE;
+	int PRIMITIVE_BINDING__VALUE = BINDING_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Primitive Binding</em>' class.
@@ -476,7 +485,7 @@ public interface Atl2javaPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PRIMITIVE_BINDING_FEATURE_COUNT = BINDING_FEATURE_COUNT + 0;
+	int PRIMITIVE_BINDING_FEATURE_COUNT = BINDING_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.impl.NavigationBindingImpl <em>Navigation Binding</em>}' class.
@@ -507,13 +516,22 @@ public interface Atl2javaPackage extends EPackage {
 	int NAVIGATION_BINDING__FEATURE = BINDING__FEATURE;
 
 	/**
+	 * The feature id for the '<em><b>Input Pattern Element</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NAVIGATION_BINDING__INPUT_PATTERN_ELEMENT = BINDING_FEATURE_COUNT + 0;
+
+	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int NAVIGATION_BINDING__VALUE = BINDING__VALUE;
+	int NAVIGATION_BINDING__VALUE = BINDING_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Navigation Binding</em>' class.
@@ -522,7 +540,7 @@ public interface Atl2javaPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int NAVIGATION_BINDING_FEATURE_COUNT = BINDING_FEATURE_COUNT + 0;
+	int NAVIGATION_BINDING_FEATURE_COUNT = BINDING_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.impl.OutputpatternElementBindingImpl <em>Outputpattern Element Binding</em>}' class.
@@ -553,13 +571,13 @@ public interface Atl2javaPackage extends EPackage {
 	int OUTPUTPATTERN_ELEMENT_BINDING__FEATURE = BINDING__FEATURE;
 
 	/**
-	 * The feature id for the '<em><b>Value</b></em>' attribute.
+	 * The feature id for the '<em><b>Value</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OUTPUTPATTERN_ELEMENT_BINDING__VALUE = BINDING__VALUE;
+	int OUTPUTPATTERN_ELEMENT_BINDING__VALUE = BINDING_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Outputpattern Element Binding</em>' class.
@@ -568,7 +586,7 @@ public interface Atl2javaPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int OUTPUTPATTERN_ELEMENT_BINDING_FEATURE_COUNT = BINDING_FEATURE_COUNT + 0;
+	int OUTPUTPATTERN_ELEMENT_BINDING_FEATURE_COUNT = BINDING_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.impl.ResolveBindingImpl <em>Resolve Binding</em>}' class.
@@ -587,7 +605,7 @@ public interface Atl2javaPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RESOLVE_BINDING__OUTPUT_PATTERN_ELEMENT = BINDING__OUTPUT_PATTERN_ELEMENT;
+	int RESOLVE_BINDING__OUTPUT_PATTERN_ELEMENT = NAVIGATION_BINDING__OUTPUT_PATTERN_ELEMENT;
 
 	/**
 	 * The feature id for the '<em><b>Feature</b></em>' attribute.
@@ -596,7 +614,16 @@ public interface Atl2javaPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RESOLVE_BINDING__FEATURE = BINDING__FEATURE;
+	int RESOLVE_BINDING__FEATURE = NAVIGATION_BINDING__FEATURE;
+
+	/**
+	 * The feature id for the '<em><b>Input Pattern Element</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RESOLVE_BINDING__INPUT_PATTERN_ELEMENT = NAVIGATION_BINDING__INPUT_PATTERN_ELEMENT;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -605,7 +632,7 @@ public interface Atl2javaPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RESOLVE_BINDING__VALUE = BINDING__VALUE;
+	int RESOLVE_BINDING__VALUE = NAVIGATION_BINDING__VALUE;
 
 	/**
 	 * The number of structural features of the '<em>Resolve Binding</em>' class.
@@ -614,7 +641,7 @@ public interface Atl2javaPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RESOLVE_BINDING_FEATURE_COUNT = BINDING_FEATURE_COUNT + 0;
+	int RESOLVE_BINDING_FEATURE_COUNT = NAVIGATION_BINDING_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.impl.SourceModelImpl <em>Source Model</em>}' class.
@@ -943,6 +970,17 @@ public interface Atl2javaPackage extends EPackage {
 	EAttribute getInputPatternElement_Type();
 
 	/**
+	 * Returns the meta object for the reference '{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.InputPatternElement#getMetamodel <em>Metamodel</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Metamodel</em>'.
+	 * @see at.ac.tuwien.big.ame13.atl2java.atl2javamm.InputPatternElement#getMetamodel()
+	 * @see #getInputPatternElement()
+	 * @generated
+	 */
+	EReference getInputPatternElement_Metamodel();
+
+	/**
 	 * Returns the meta object for class '{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.OutputPatternElement <em>Output Pattern Element</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -997,6 +1035,17 @@ public interface Atl2javaPackage extends EPackage {
 	EAttribute getOutputPatternElement_Type();
 
 	/**
+	 * Returns the meta object for the reference '{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.OutputPatternElement#getMetamodel <em>Metamodel</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Metamodel</em>'.
+	 * @see at.ac.tuwien.big.ame13.atl2java.atl2javamm.OutputPatternElement#getMetamodel()
+	 * @see #getOutputPatternElement()
+	 * @generated
+	 */
+	EReference getOutputPatternElement_Metamodel();
+
+	/**
 	 * Returns the meta object for class '{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.Binding <em>Binding</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1027,17 +1076,6 @@ public interface Atl2javaPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getBinding_Feature();
-
-	/**
-	 * Returns the meta object for the attribute '{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.Binding#getValue <em>Value</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Value</em>'.
-	 * @see at.ac.tuwien.big.ame13.atl2java.atl2javamm.Binding#getValue()
-	 * @see #getBinding()
-	 * @generated
-	 */
-	EAttribute getBinding_Value();
 
 	/**
 	 * Returns the meta object for class '{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.Model <em>Model</em>}'.
@@ -1093,6 +1131,17 @@ public interface Atl2javaPackage extends EPackage {
 	EClass getPrimitiveBinding();
 
 	/**
+	 * Returns the meta object for the attribute '{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.PrimitiveBinding#getValue <em>Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Value</em>'.
+	 * @see at.ac.tuwien.big.ame13.atl2java.atl2javamm.PrimitiveBinding#getValue()
+	 * @see #getPrimitiveBinding()
+	 * @generated
+	 */
+	EAttribute getPrimitiveBinding_Value();
+
+	/**
 	 * Returns the meta object for class '{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.NavigationBinding <em>Navigation Binding</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1103,6 +1152,28 @@ public interface Atl2javaPackage extends EPackage {
 	EClass getNavigationBinding();
 
 	/**
+	 * Returns the meta object for the reference '{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.NavigationBinding#getInputPatternElement <em>Input Pattern Element</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Input Pattern Element</em>'.
+	 * @see at.ac.tuwien.big.ame13.atl2java.atl2javamm.NavigationBinding#getInputPatternElement()
+	 * @see #getNavigationBinding()
+	 * @generated
+	 */
+	EReference getNavigationBinding_InputPatternElement();
+
+	/**
+	 * Returns the meta object for the attribute '{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.NavigationBinding#getValue <em>Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Value</em>'.
+	 * @see at.ac.tuwien.big.ame13.atl2java.atl2javamm.NavigationBinding#getValue()
+	 * @see #getNavigationBinding()
+	 * @generated
+	 */
+	EAttribute getNavigationBinding_Value();
+
+	/**
 	 * Returns the meta object for class '{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.OutputpatternElementBinding <em>Outputpattern Element Binding</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1111,6 +1182,17 @@ public interface Atl2javaPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getOutputpatternElementBinding();
+
+	/**
+	 * Returns the meta object for the reference '{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.OutputpatternElementBinding#getValue <em>Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Value</em>'.
+	 * @see at.ac.tuwien.big.ame13.atl2java.atl2javamm.OutputpatternElementBinding#getValue()
+	 * @see #getOutputpatternElementBinding()
+	 * @generated
+	 */
+	EReference getOutputpatternElementBinding_Value();
 
 	/**
 	 * Returns the meta object for class '{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.ResolveBinding <em>Resolve Binding</em>}'.
@@ -1357,6 +1439,14 @@ public interface Atl2javaPackage extends EPackage {
 		EAttribute INPUT_PATTERN_ELEMENT__TYPE = eINSTANCE.getInputPatternElement_Type();
 
 		/**
+		 * The meta object literal for the '<em><b>Metamodel</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference INPUT_PATTERN_ELEMENT__METAMODEL = eINSTANCE.getInputPatternElement_Metamodel();
+
+		/**
 		 * The meta object literal for the '{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.impl.OutputPatternElementImpl <em>Output Pattern Element</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1399,6 +1489,14 @@ public interface Atl2javaPackage extends EPackage {
 		EAttribute OUTPUT_PATTERN_ELEMENT__TYPE = eINSTANCE.getOutputPatternElement_Type();
 
 		/**
+		 * The meta object literal for the '<em><b>Metamodel</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference OUTPUT_PATTERN_ELEMENT__METAMODEL = eINSTANCE.getOutputPatternElement_Metamodel();
+
+		/**
 		 * The meta object literal for the '{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.impl.BindingImpl <em>Binding</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1423,14 +1521,6 @@ public interface Atl2javaPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute BINDING__FEATURE = eINSTANCE.getBinding_Feature();
-
-		/**
-		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute BINDING__VALUE = eINSTANCE.getBinding_Value();
 
 		/**
 		 * The meta object literal for the '{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.impl.ModelImpl <em>Model</em>}' class.
@@ -1477,6 +1567,14 @@ public interface Atl2javaPackage extends EPackage {
 		EClass PRIMITIVE_BINDING = eINSTANCE.getPrimitiveBinding();
 
 		/**
+		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PRIMITIVE_BINDING__VALUE = eINSTANCE.getPrimitiveBinding_Value();
+
+		/**
 		 * The meta object literal for the '{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.impl.NavigationBindingImpl <em>Navigation Binding</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1487,6 +1585,22 @@ public interface Atl2javaPackage extends EPackage {
 		EClass NAVIGATION_BINDING = eINSTANCE.getNavigationBinding();
 
 		/**
+		 * The meta object literal for the '<em><b>Input Pattern Element</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference NAVIGATION_BINDING__INPUT_PATTERN_ELEMENT = eINSTANCE.getNavigationBinding_InputPatternElement();
+
+		/**
+		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute NAVIGATION_BINDING__VALUE = eINSTANCE.getNavigationBinding_Value();
+
+		/**
 		 * The meta object literal for the '{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.impl.OutputpatternElementBindingImpl <em>Outputpattern Element Binding</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1495,6 +1609,14 @@ public interface Atl2javaPackage extends EPackage {
 		 * @generated
 		 */
 		EClass OUTPUTPATTERN_ELEMENT_BINDING = eINSTANCE.getOutputpatternElementBinding();
+
+		/**
+		 * The meta object literal for the '<em><b>Value</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference OUTPUTPATTERN_ELEMENT_BINDING__VALUE = eINSTANCE.getOutputpatternElementBinding_Value();
 
 		/**
 		 * The meta object literal for the '{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.impl.ResolveBindingImpl <em>Resolve Binding</em>}' class.

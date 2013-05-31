@@ -13,5 +13,5 @@ package at.ac.tuwien.big.ame13.atl2java.atl2javamm;
  * @model
  * @generated
  */
-public interface ResolveBinding extends Binding {
+public interface ResolveBinding extends NavigationBinding {
 } // ResolveBinding

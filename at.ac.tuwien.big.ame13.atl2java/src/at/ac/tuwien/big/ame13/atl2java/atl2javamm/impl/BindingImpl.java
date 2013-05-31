@@ -26,7 +26,6 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
  * <ul>
  *   <li>{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.impl.BindingImpl#getOutputPatternElement <em>Output Pattern Element</em>}</li>
  *   <li>{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.impl.BindingImpl#getFeature <em>Feature</em>}</li>
- *   <li>{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.impl.BindingImpl#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
  *
@@ -52,26 +51,6 @@ public abstract class BindingImpl extends EObjectImpl implements Binding {
 	 * @ordered
 	 */
 	protected String feature = FEATURE_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getValue() <em>Value</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getValue()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String VALUE_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getValue() <em>Value</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getValue()
-	 * @generated
-	 * @ordered
-	 */
-	protected String value = VALUE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -159,27 +138,6 @@ public abstract class BindingImpl extends EObjectImpl implements Binding {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getValue() {
-		return value;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setValue(String newValue) {
-		String oldValue = value;
-		value = newValue;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Atl2javaPackage.BINDING__VALUE, oldValue, value));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -231,8 +189,6 @@ public abstract class BindingImpl extends EObjectImpl implements Binding {
 				return getOutputPatternElement();
 			case Atl2javaPackage.BINDING__FEATURE:
 				return getFeature();
-			case Atl2javaPackage.BINDING__VALUE:
-				return getValue();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -250,9 +206,6 @@ public abstract class BindingImpl extends EObjectImpl implements Binding {
 				return;
 			case Atl2javaPackage.BINDING__FEATURE:
 				setFeature((String)newValue);
-				return;
-			case Atl2javaPackage.BINDING__VALUE:
-				setValue((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -272,9 +225,6 @@ public abstract class BindingImpl extends EObjectImpl implements Binding {
 			case Atl2javaPackage.BINDING__FEATURE:
 				setFeature(FEATURE_EDEFAULT);
 				return;
-			case Atl2javaPackage.BINDING__VALUE:
-				setValue(VALUE_EDEFAULT);
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -291,8 +241,6 @@ public abstract class BindingImpl extends EObjectImpl implements Binding {
 				return getOutputPatternElement() != null;
 			case Atl2javaPackage.BINDING__FEATURE:
 				return FEATURE_EDEFAULT == null ? feature != null : !FEATURE_EDEFAULT.equals(feature);
-			case Atl2javaPackage.BINDING__VALUE:
-				return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -309,8 +257,6 @@ public abstract class BindingImpl extends EObjectImpl implements Binding {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (feature: ");
 		result.append(feature);
-		result.append(", value: ");
-		result.append(value);
 		result.append(')');
 		return result.toString();
 	}

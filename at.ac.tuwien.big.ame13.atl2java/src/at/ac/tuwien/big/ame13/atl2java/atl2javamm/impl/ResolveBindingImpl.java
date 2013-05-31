@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.EClass;
  *
  * @generated
  */
-public class ResolveBindingImpl extends BindingImpl implements ResolveBinding {
+public class ResolveBindingImpl extends NavigationBindingImpl implements ResolveBinding {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

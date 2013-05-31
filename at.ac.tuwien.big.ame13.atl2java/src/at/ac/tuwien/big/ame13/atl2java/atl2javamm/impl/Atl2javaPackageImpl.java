@@ -377,6 +377,15 @@ public class Atl2javaPackageImpl extends EPackageImpl implements Atl2javaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getInputPatternElement_Metamodel() {
+		return (EReference)inputPatternElementEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getOutputPatternElement() {
 		return outputPatternElementEClass;
 	}
@@ -422,6 +431,15 @@ public class Atl2javaPackageImpl extends EPackageImpl implements Atl2javaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getOutputPatternElement_Metamodel() {
+		return (EReference)outputPatternElementEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getBinding() {
 		return bindingEClass;
 	}
@@ -442,15 +460,6 @@ public class Atl2javaPackageImpl extends EPackageImpl implements Atl2javaPackage
 	 */
 	public EAttribute getBinding_Feature() {
 		return (EAttribute)bindingEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getBinding_Value() {
-		return (EAttribute)bindingEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -503,6 +512,15 @@ public class Atl2javaPackageImpl extends EPackageImpl implements Atl2javaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getPrimitiveBinding_Value() {
+		return (EAttribute)primitiveBindingEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getNavigationBinding() {
 		return navigationBindingEClass;
 	}
@@ -512,8 +530,35 @@ public class Atl2javaPackageImpl extends EPackageImpl implements Atl2javaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getNavigationBinding_InputPatternElement() {
+		return (EReference)navigationBindingEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getNavigationBinding_Value() {
+		return (EAttribute)navigationBindingEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getOutputpatternElementBinding() {
 		return outputpatternElementBindingEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getOutputpatternElementBinding_Value() {
+		return (EReference)outputpatternElementBindingEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -613,17 +658,18 @@ public class Atl2javaPackageImpl extends EPackageImpl implements Atl2javaPackage
 		createEReference(inputPatternElementEClass, INPUT_PATTERN_ELEMENT__INPUT_PATTERN);
 		createEAttribute(inputPatternElementEClass, INPUT_PATTERN_ELEMENT__VAR);
 		createEAttribute(inputPatternElementEClass, INPUT_PATTERN_ELEMENT__TYPE);
+		createEReference(inputPatternElementEClass, INPUT_PATTERN_ELEMENT__METAMODEL);
 
 		outputPatternElementEClass = createEClass(OUTPUT_PATTERN_ELEMENT);
 		createEReference(outputPatternElementEClass, OUTPUT_PATTERN_ELEMENT__OUPUT_PATTERN);
 		createEReference(outputPatternElementEClass, OUTPUT_PATTERN_ELEMENT__BINDINGS);
 		createEAttribute(outputPatternElementEClass, OUTPUT_PATTERN_ELEMENT__VAR);
 		createEAttribute(outputPatternElementEClass, OUTPUT_PATTERN_ELEMENT__TYPE);
+		createEReference(outputPatternElementEClass, OUTPUT_PATTERN_ELEMENT__METAMODEL);
 
 		bindingEClass = createEClass(BINDING);
 		createEReference(bindingEClass, BINDING__OUTPUT_PATTERN_ELEMENT);
 		createEAttribute(bindingEClass, BINDING__FEATURE);
-		createEAttribute(bindingEClass, BINDING__VALUE);
 
 		modelEClass = createEClass(MODEL);
 		createEAttribute(modelEClass, MODEL__PATH);
@@ -631,10 +677,14 @@ public class Atl2javaPackageImpl extends EPackageImpl implements Atl2javaPackage
 		createEAttribute(modelEClass, MODEL__METAMODEL);
 
 		primitiveBindingEClass = createEClass(PRIMITIVE_BINDING);
+		createEAttribute(primitiveBindingEClass, PRIMITIVE_BINDING__VALUE);
 
 		navigationBindingEClass = createEClass(NAVIGATION_BINDING);
+		createEReference(navigationBindingEClass, NAVIGATION_BINDING__INPUT_PATTERN_ELEMENT);
+		createEAttribute(navigationBindingEClass, NAVIGATION_BINDING__VALUE);
 
 		outputpatternElementBindingEClass = createEClass(OUTPUTPATTERN_ELEMENT_BINDING);
+		createEReference(outputpatternElementBindingEClass, OUTPUTPATTERN_ELEMENT_BINDING__VALUE);
 
 		resolveBindingEClass = createEClass(RESOLVE_BINDING);
 
@@ -676,7 +726,7 @@ public class Atl2javaPackageImpl extends EPackageImpl implements Atl2javaPackage
 		primitiveBindingEClass.getESuperTypes().add(this.getBinding());
 		navigationBindingEClass.getESuperTypes().add(this.getBinding());
 		outputpatternElementBindingEClass.getESuperTypes().add(this.getBinding());
-		resolveBindingEClass.getESuperTypes().add(this.getBinding());
+		resolveBindingEClass.getESuperTypes().add(this.getNavigationBinding());
 		sourceModelEClass.getESuperTypes().add(this.getModel());
 		targetModelEClass.getESuperTypes().add(this.getModel());
 
@@ -705,17 +755,18 @@ public class Atl2javaPackageImpl extends EPackageImpl implements Atl2javaPackage
 		initEReference(getInputPatternElement_InputPattern(), this.getInputPattern(), this.getInputPattern_InputPatternElements(), "inputPattern", null, 1, 1, InputPatternElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getInputPatternElement_Var(), ecorePackage.getEString(), "var", null, 1, 1, InputPatternElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getInputPatternElement_Type(), ecorePackage.getEString(), "type", null, 1, 1, InputPatternElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getInputPatternElement_Metamodel(), this.getSourceModel(), null, "metamodel", null, 1, 1, InputPatternElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(outputPatternElementEClass, OutputPatternElement.class, "OutputPatternElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getOutputPatternElement_OuputPattern(), this.getOutputPattern(), this.getOutputPattern_OutputPatternElements(), "ouputPattern", null, 1, 1, OutputPatternElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getOutputPatternElement_Bindings(), this.getBinding(), this.getBinding_OutputPatternElement(), "bindings", null, 0, -1, OutputPatternElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getOutputPatternElement_Var(), ecorePackage.getEString(), "var", null, 1, 1, OutputPatternElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getOutputPatternElement_Type(), ecorePackage.getEString(), "type", null, 1, 1, OutputPatternElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getOutputPatternElement_Metamodel(), this.getTargetModel(), null, "metamodel", null, 1, 1, OutputPatternElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(bindingEClass, Binding.class, "Binding", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getBinding_OutputPatternElement(), this.getOutputPatternElement(), this.getOutputPatternElement_Bindings(), "outputPatternElement", null, 1, 1, Binding.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getBinding_Feature(), ecorePackage.getEString(), "feature", null, 1, 1, Binding.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getBinding_Value(), ecorePackage.getEString(), "value", null, 1, 1, Binding.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(modelEClass, Model.class, "Model", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getModel_Path(), ecorePackage.getEString(), "path", null, 1, 1, Model.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -723,10 +774,14 @@ public class Atl2javaPackageImpl extends EPackageImpl implements Atl2javaPackage
 		initEAttribute(getModel_Metamodel(), ecorePackage.getEString(), "metamodel", null, 1, 1, Model.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(primitiveBindingEClass, PrimitiveBinding.class, "PrimitiveBinding", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getPrimitiveBinding_Value(), ecorePackage.getEString(), "value", null, 0, 1, PrimitiveBinding.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(navigationBindingEClass, NavigationBinding.class, "NavigationBinding", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getNavigationBinding_InputPatternElement(), this.getInputPatternElement(), null, "inputPatternElement", null, 1, 1, NavigationBinding.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getNavigationBinding_Value(), ecorePackage.getEString(), "value", null, 1, 1, NavigationBinding.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(outputpatternElementBindingEClass, OutputpatternElementBinding.class, "OutputpatternElementBinding", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getOutputpatternElementBinding_Value(), this.getOutputPatternElement(), null, "value", null, 1, 1, OutputpatternElementBinding.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(resolveBindingEClass, ResolveBinding.class, "ResolveBinding", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

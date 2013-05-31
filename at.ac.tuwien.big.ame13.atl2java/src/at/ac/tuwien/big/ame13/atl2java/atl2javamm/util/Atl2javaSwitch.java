@@ -138,6 +138,7 @@ public class Atl2javaSwitch<T> extends Switch<T> {
 			case Atl2javaPackage.RESOLVE_BINDING: {
 				ResolveBinding resolveBinding = (ResolveBinding)theEObject;
 				T result = caseResolveBinding(resolveBinding);
+				if (result == null) result = caseNavigationBinding(resolveBinding);
 				if (result == null) result = caseBinding(resolveBinding);
 				if (result == null) result = defaultCase(theEObject);
 				return result;

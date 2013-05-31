@@ -6,6 +6,7 @@ import at.ac.tuwien.big.ame13.atl2java.atl2javamm.Atl2javaPackage;
 import at.ac.tuwien.big.ame13.atl2java.atl2javamm.Binding;
 import at.ac.tuwien.big.ame13.atl2java.atl2javamm.OutputPattern;
 import at.ac.tuwien.big.ame13.atl2java.atl2javamm.OutputPatternElement;
+import at.ac.tuwien.big.ame13.atl2java.atl2javamm.TargetModel;
 
 import java.util.Collection;
 
@@ -35,6 +36,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.impl.OutputPatternElementImpl#getBindings <em>Bindings</em>}</li>
  *   <li>{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.impl.OutputPatternElementImpl#getVar <em>Var</em>}</li>
  *   <li>{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.impl.OutputPatternElementImpl#getType <em>Type</em>}</li>
+ *   <li>{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.impl.OutputPatternElementImpl#getMetamodel <em>Metamodel</em>}</li>
  * </ul>
  * </p>
  *
@@ -90,6 +92,16 @@ public class OutputPatternElementImpl extends EObjectImpl implements OutputPatte
 	 * @ordered
 	 */
 	protected String type = TYPE_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getMetamodel() <em>Metamodel</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMetamodel()
+	 * @generated
+	 * @ordered
+	 */
+	protected TargetModel metamodel;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -210,6 +222,44 @@ public class OutputPatternElementImpl extends EObjectImpl implements OutputPatte
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public TargetModel getMetamodel() {
+		if (metamodel != null && metamodel.eIsProxy()) {
+			InternalEObject oldMetamodel = (InternalEObject)metamodel;
+			metamodel = (TargetModel)eResolveProxy(oldMetamodel);
+			if (metamodel != oldMetamodel) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Atl2javaPackage.OUTPUT_PATTERN_ELEMENT__METAMODEL, oldMetamodel, metamodel));
+			}
+		}
+		return metamodel;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TargetModel basicGetMetamodel() {
+		return metamodel;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setMetamodel(TargetModel newMetamodel) {
+		TargetModel oldMetamodel = metamodel;
+		metamodel = newMetamodel;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, Atl2javaPackage.OUTPUT_PATTERN_ELEMENT__METAMODEL, oldMetamodel, metamodel));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -270,6 +320,9 @@ public class OutputPatternElementImpl extends EObjectImpl implements OutputPatte
 				return getVar();
 			case Atl2javaPackage.OUTPUT_PATTERN_ELEMENT__TYPE:
 				return getType();
+			case Atl2javaPackage.OUTPUT_PATTERN_ELEMENT__METAMODEL:
+				if (resolve) return getMetamodel();
+				return basicGetMetamodel();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -296,6 +349,9 @@ public class OutputPatternElementImpl extends EObjectImpl implements OutputPatte
 			case Atl2javaPackage.OUTPUT_PATTERN_ELEMENT__TYPE:
 				setType((String)newValue);
 				return;
+			case Atl2javaPackage.OUTPUT_PATTERN_ELEMENT__METAMODEL:
+				setMetamodel((TargetModel)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -320,6 +376,9 @@ public class OutputPatternElementImpl extends EObjectImpl implements OutputPatte
 			case Atl2javaPackage.OUTPUT_PATTERN_ELEMENT__TYPE:
 				setType(TYPE_EDEFAULT);
 				return;
+			case Atl2javaPackage.OUTPUT_PATTERN_ELEMENT__METAMODEL:
+				setMetamodel((TargetModel)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -340,6 +399,8 @@ public class OutputPatternElementImpl extends EObjectImpl implements OutputPatte
 				return VAR_EDEFAULT == null ? var != null : !VAR_EDEFAULT.equals(var);
 			case Atl2javaPackage.OUTPUT_PATTERN_ELEMENT__TYPE:
 				return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
+			case Atl2javaPackage.OUTPUT_PATTERN_ELEMENT__METAMODEL:
+				return metamodel != null;
 		}
 		return super.eIsSet(featureID);
 	}

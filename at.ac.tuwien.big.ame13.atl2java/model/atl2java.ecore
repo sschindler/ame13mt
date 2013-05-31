@@ -37,6 +37,8 @@
         eType="#//InputPattern" eOpposite="#//InputPattern/inputPatternElements"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="var" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="metamodel" lowerBound="1"
+        eType="#//SourceModel"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="OutputPatternElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ouputPattern" lowerBound="1"
@@ -45,13 +47,14 @@
         eType="#//Binding" containment="true" eOpposite="#//Binding/outputPatternElement"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="var" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="metamodel" lowerBound="1"
+        eType="#//TargetModel"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Binding" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EReference" name="outputPatternElement" lowerBound="1"
         eType="#//OutputPatternElement" eOpposite="#//OutputPatternElement/bindings"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="feature" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Model" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="path" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -59,10 +62,18 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="metamodel" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PrimitiveBinding" eSuperTypes="#//Binding"/>
-  <eClassifiers xsi:type="ecore:EClass" name="NavigationBinding" eSuperTypes="#//Binding"/>
-  <eClassifiers xsi:type="ecore:EClass" name="OutputpatternElementBinding" eSuperTypes="#//Binding"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ResolveBinding" eSuperTypes="#//Binding"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PrimitiveBinding" eSuperTypes="#//Binding">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NavigationBinding" eSuperTypes="#//Binding">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="inputPatternElement" lowerBound="1"
+        eType="#//InputPatternElement"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="OutputpatternElementBinding" eSuperTypes="#//Binding">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" lowerBound="1" eType="#//OutputPatternElement"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ResolveBinding" eSuperTypes="#//NavigationBinding"/>
   <eClassifiers xsi:type="ecore:EClass" name="SourceModel" eSuperTypes="#//Model">
     <eStructuralFeatures xsi:type="ecore:EReference" name="transformation" lowerBound="1"
         eType="#//Transformation" eOpposite="#//Transformation/sourceModel"/>

@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.OutputPatternElement#getBindings <em>Bindings</em>}</li>
  *   <li>{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.OutputPatternElement#getVar <em>Var</em>}</li>
  *   <li>{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.OutputPatternElement#getType <em>Type</em>}</li>
+ *   <li>{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.OutputPatternElement#getMetamodel <em>Metamodel</em>}</li>
  * </ul>
  * </p>
  *
@@ -123,5 +124,31 @@ public interface OutputPatternElement extends EObject {
 	 * @generated
 	 */
 	void setType(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Metamodel</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Metamodel</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Metamodel</em>' reference.
+	 * @see #setMetamodel(TargetModel)
+	 * @see at.ac.tuwien.big.ame13.atl2java.atl2javamm.Atl2javaPackage#getOutputPatternElement_Metamodel()
+	 * @model required="true"
+	 * @generated
+	 */
+	TargetModel getMetamodel();
+
+	/**
+	 * Sets the value of the '{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.OutputPatternElement#getMetamodel <em>Metamodel</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Metamodel</em>' reference.
+	 * @see #getMetamodel()
+	 * @generated
+	 */
+	void setMetamodel(TargetModel value);
 
 } // OutputPatternElement

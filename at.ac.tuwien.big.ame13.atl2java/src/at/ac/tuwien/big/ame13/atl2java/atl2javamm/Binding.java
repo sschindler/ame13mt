@@ -14,7 +14,6 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.Binding#getOutputPatternElement <em>Output Pattern Element</em>}</li>
  *   <li>{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.Binding#getFeature <em>Feature</em>}</li>
- *   <li>{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.Binding#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
  *
@@ -76,31 +75,5 @@ public interface Binding extends EObject {
 	 * @generated
 	 */
 	void setFeature(String value);
-
-	/**
-	 * Returns the value of the '<em><b>Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Value</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Value</em>' attribute.
-	 * @see #setValue(String)
-	 * @see at.ac.tuwien.big.ame13.atl2java.atl2javamm.Atl2javaPackage#getBinding_Value()
-	 * @model required="true"
-	 * @generated
-	 */
-	String getValue();
-
-	/**
-	 * Sets the value of the '{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.Binding#getValue <em>Value</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Value</em>' attribute.
-	 * @see #getValue()
-	 * @generated
-	 */
-	void setValue(String value);
 
 } // Binding

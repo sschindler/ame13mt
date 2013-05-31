@@ -5,6 +5,7 @@ package at.ac.tuwien.big.ame13.atl2java.atl2javamm.impl;
 import at.ac.tuwien.big.ame13.atl2java.atl2javamm.Atl2javaPackage;
 import at.ac.tuwien.big.ame13.atl2java.atl2javamm.InputPattern;
 import at.ac.tuwien.big.ame13.atl2java.atl2javamm.InputPatternElement;
+import at.ac.tuwien.big.ame13.atl2java.atl2javamm.SourceModel;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -27,6 +28,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
  *   <li>{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.impl.InputPatternElementImpl#getInputPattern <em>Input Pattern</em>}</li>
  *   <li>{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.impl.InputPatternElementImpl#getVar <em>Var</em>}</li>
  *   <li>{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.impl.InputPatternElementImpl#getType <em>Type</em>}</li>
+ *   <li>{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.impl.InputPatternElementImpl#getMetamodel <em>Metamodel</em>}</li>
  * </ul>
  * </p>
  *
@@ -72,6 +74,16 @@ public class InputPatternElementImpl extends EObjectImpl implements InputPattern
 	 * @ordered
 	 */
 	protected String type = TYPE_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getMetamodel() <em>Metamodel</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMetamodel()
+	 * @generated
+	 * @ordered
+	 */
+	protected SourceModel metamodel;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -180,6 +192,44 @@ public class InputPatternElementImpl extends EObjectImpl implements InputPattern
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public SourceModel getMetamodel() {
+		if (metamodel != null && metamodel.eIsProxy()) {
+			InternalEObject oldMetamodel = (InternalEObject)metamodel;
+			metamodel = (SourceModel)eResolveProxy(oldMetamodel);
+			if (metamodel != oldMetamodel) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Atl2javaPackage.INPUT_PATTERN_ELEMENT__METAMODEL, oldMetamodel, metamodel));
+			}
+		}
+		return metamodel;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SourceModel basicGetMetamodel() {
+		return metamodel;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setMetamodel(SourceModel newMetamodel) {
+		SourceModel oldMetamodel = metamodel;
+		metamodel = newMetamodel;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, Atl2javaPackage.INPUT_PATTERN_ELEMENT__METAMODEL, oldMetamodel, metamodel));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -233,6 +283,9 @@ public class InputPatternElementImpl extends EObjectImpl implements InputPattern
 				return getVar();
 			case Atl2javaPackage.INPUT_PATTERN_ELEMENT__TYPE:
 				return getType();
+			case Atl2javaPackage.INPUT_PATTERN_ELEMENT__METAMODEL:
+				if (resolve) return getMetamodel();
+				return basicGetMetamodel();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -253,6 +306,9 @@ public class InputPatternElementImpl extends EObjectImpl implements InputPattern
 				return;
 			case Atl2javaPackage.INPUT_PATTERN_ELEMENT__TYPE:
 				setType((String)newValue);
+				return;
+			case Atl2javaPackage.INPUT_PATTERN_ELEMENT__METAMODEL:
+				setMetamodel((SourceModel)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -275,6 +331,9 @@ public class InputPatternElementImpl extends EObjectImpl implements InputPattern
 			case Atl2javaPackage.INPUT_PATTERN_ELEMENT__TYPE:
 				setType(TYPE_EDEFAULT);
 				return;
+			case Atl2javaPackage.INPUT_PATTERN_ELEMENT__METAMODEL:
+				setMetamodel((SourceModel)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -293,6 +352,8 @@ public class InputPatternElementImpl extends EObjectImpl implements InputPattern
 				return VAR_EDEFAULT == null ? var != null : !VAR_EDEFAULT.equals(var);
 			case Atl2javaPackage.INPUT_PATTERN_ELEMENT__TYPE:
 				return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
+			case Atl2javaPackage.INPUT_PATTERN_ELEMENT__METAMODEL:
+				return metamodel != null;
 		}
 		return super.eIsSet(featureID);
 	}

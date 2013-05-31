@@ -15,6 +15,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.InputPatternElement#getInputPattern <em>Input Pattern</em>}</li>
  *   <li>{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.InputPatternElement#getVar <em>Var</em>}</li>
  *   <li>{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.InputPatternElement#getType <em>Type</em>}</li>
+ *   <li>{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.InputPatternElement#getMetamodel <em>Metamodel</em>}</li>
  * </ul>
  * </p>
  *
@@ -102,5 +103,31 @@ public interface InputPatternElement extends EObject {
 	 * @generated
 	 */
 	void setType(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Metamodel</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Metamodel</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Metamodel</em>' reference.
+	 * @see #setMetamodel(SourceModel)
+	 * @see at.ac.tuwien.big.ame13.atl2java.atl2javamm.Atl2javaPackage#getInputPatternElement_Metamodel()
+	 * @model required="true"
+	 * @generated
+	 */
+	SourceModel getMetamodel();
+
+	/**
+	 * Sets the value of the '{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.InputPatternElement#getMetamodel <em>Metamodel</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Metamodel</em>' reference.
+	 * @see #getMetamodel()
+	 * @generated
+	 */
+	void setMetamodel(SourceModel value);
 
 } // InputPatternElement

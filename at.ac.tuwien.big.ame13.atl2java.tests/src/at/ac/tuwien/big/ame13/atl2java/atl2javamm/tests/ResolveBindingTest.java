@@ -13,7 +13,7 @@ import junit.textui.TestRunner;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ResolveBindingTest extends BindingTest {
+public class ResolveBindingTest extends NavigationBindingTest {
 
 	/**
 	 * <!-- begin-user-doc -->

@@ -359,7 +359,7 @@ public class Atl2javaPackageImpl extends EPackageImpl implements Atl2javaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getInputPatternElement_Var() {
+	public EAttribute getInputPatternElement_Name() {
 		return (EAttribute)inputPatternElementEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -413,7 +413,7 @@ public class Atl2javaPackageImpl extends EPackageImpl implements Atl2javaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getOutputPatternElement_Var() {
+	public EAttribute getOutputPatternElement_Name() {
 		return (EAttribute)outputPatternElementEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -656,14 +656,14 @@ public class Atl2javaPackageImpl extends EPackageImpl implements Atl2javaPackage
 
 		inputPatternElementEClass = createEClass(INPUT_PATTERN_ELEMENT);
 		createEReference(inputPatternElementEClass, INPUT_PATTERN_ELEMENT__INPUT_PATTERN);
-		createEAttribute(inputPatternElementEClass, INPUT_PATTERN_ELEMENT__VAR);
+		createEAttribute(inputPatternElementEClass, INPUT_PATTERN_ELEMENT__NAME);
 		createEAttribute(inputPatternElementEClass, INPUT_PATTERN_ELEMENT__TYPE);
 		createEReference(inputPatternElementEClass, INPUT_PATTERN_ELEMENT__METAMODEL);
 
 		outputPatternElementEClass = createEClass(OUTPUT_PATTERN_ELEMENT);
 		createEReference(outputPatternElementEClass, OUTPUT_PATTERN_ELEMENT__OUPUT_PATTERN);
 		createEReference(outputPatternElementEClass, OUTPUT_PATTERN_ELEMENT__BINDINGS);
-		createEAttribute(outputPatternElementEClass, OUTPUT_PATTERN_ELEMENT__VAR);
+		createEAttribute(outputPatternElementEClass, OUTPUT_PATTERN_ELEMENT__NAME);
 		createEAttribute(outputPatternElementEClass, OUTPUT_PATTERN_ELEMENT__TYPE);
 		createEReference(outputPatternElementEClass, OUTPUT_PATTERN_ELEMENT__METAMODEL);
 
@@ -753,14 +753,14 @@ public class Atl2javaPackageImpl extends EPackageImpl implements Atl2javaPackage
 
 		initEClass(inputPatternElementEClass, InputPatternElement.class, "InputPatternElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getInputPatternElement_InputPattern(), this.getInputPattern(), this.getInputPattern_InputPatternElements(), "inputPattern", null, 1, 1, InputPatternElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getInputPatternElement_Var(), ecorePackage.getEString(), "var", null, 1, 1, InputPatternElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getInputPatternElement_Name(), ecorePackage.getEString(), "name", null, 1, 1, InputPatternElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getInputPatternElement_Type(), ecorePackage.getEString(), "type", null, 1, 1, InputPatternElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getInputPatternElement_Metamodel(), this.getSourceModel(), null, "metamodel", null, 1, 1, InputPatternElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(outputPatternElementEClass, OutputPatternElement.class, "OutputPatternElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getOutputPatternElement_OuputPattern(), this.getOutputPattern(), this.getOutputPattern_OutputPatternElements(), "ouputPattern", null, 1, 1, OutputPatternElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getOutputPatternElement_Bindings(), this.getBinding(), this.getBinding_OutputPatternElement(), "bindings", null, 0, -1, OutputPatternElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getOutputPatternElement_Var(), ecorePackage.getEString(), "var", null, 1, 1, OutputPatternElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getOutputPatternElement_Name(), ecorePackage.getEString(), "name", null, 1, 1, OutputPatternElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getOutputPatternElement_Type(), ecorePackage.getEString(), "type", null, 1, 1, OutputPatternElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getOutputPatternElement_Metamodel(), this.getTargetModel(), null, "metamodel", null, 1, 1, OutputPatternElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

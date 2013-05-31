@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.OutputPatternElement#getOuputPattern <em>Ouput Pattern</em>}</li>
  *   <li>{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.OutputPatternElement#getBindings <em>Bindings</em>}</li>
- *   <li>{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.OutputPatternElement#getVar <em>Var</em>}</li>
+ *   <li>{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.OutputPatternElement#getName <em>Name</em>}</li>
  *   <li>{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.OutputPatternElement#getType <em>Type</em>}</li>
  *   <li>{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.OutputPatternElement#getMetamodel <em>Metamodel</em>}</li>
  * </ul>
@@ -74,30 +74,30 @@ public interface OutputPatternElement extends EObject {
 	EList<Binding> getBindings();
 
 	/**
-	 * Returns the value of the '<em><b>Var</b></em>' attribute.
+	 * Returns the value of the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Var</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Name</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Var</em>' attribute.
-	 * @see #setVar(String)
-	 * @see at.ac.tuwien.big.ame13.atl2java.atl2javamm.Atl2javaPackage#getOutputPatternElement_Var()
+	 * @return the value of the '<em>Name</em>' attribute.
+	 * @see #setName(String)
+	 * @see at.ac.tuwien.big.ame13.atl2java.atl2javamm.Atl2javaPackage#getOutputPatternElement_Name()
 	 * @model required="true"
 	 * @generated
 	 */
-	String getVar();
+	String getName();
 
 	/**
-	 * Sets the value of the '{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.OutputPatternElement#getVar <em>Var</em>}' attribute.
+	 * Sets the value of the '{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.OutputPatternElement#getName <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Var</em>' attribute.
-	 * @see #getVar()
+	 * @param value the new value of the '<em>Name</em>' attribute.
+	 * @see #getName()
 	 * @generated
 	 */
-	void setVar(String value);
+	void setName(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Type</b></em>' attribute.

@@ -259,13 +259,13 @@ public interface Atl2javaPackage extends EPackage {
 	int INPUT_PATTERN_ELEMENT__INPUT_PATTERN = 0;
 
 	/**
-	 * The feature id for the '<em><b>Var</b></em>' attribute.
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INPUT_PATTERN_ELEMENT__VAR = 1;
+	int INPUT_PATTERN_ELEMENT__NAME = 1;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' attribute.
@@ -323,13 +323,13 @@ public interface Atl2javaPackage extends EPackage {
 	int OUTPUT_PATTERN_ELEMENT__BINDINGS = 1;
 
 	/**
-	 * The feature id for the '<em><b>Var</b></em>' attribute.
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OUTPUT_PATTERN_ELEMENT__VAR = 2;
+	int OUTPUT_PATTERN_ELEMENT__NAME = 2;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' attribute.
@@ -948,15 +948,15 @@ public interface Atl2javaPackage extends EPackage {
 	EReference getInputPatternElement_InputPattern();
 
 	/**
-	 * Returns the meta object for the attribute '{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.InputPatternElement#getVar <em>Var</em>}'.
+	 * Returns the meta object for the attribute '{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.InputPatternElement#getName <em>Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Var</em>'.
-	 * @see at.ac.tuwien.big.ame13.atl2java.atl2javamm.InputPatternElement#getVar()
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see at.ac.tuwien.big.ame13.atl2java.atl2javamm.InputPatternElement#getName()
 	 * @see #getInputPatternElement()
 	 * @generated
 	 */
-	EAttribute getInputPatternElement_Var();
+	EAttribute getInputPatternElement_Name();
 
 	/**
 	 * Returns the meta object for the attribute '{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.InputPatternElement#getType <em>Type</em>}'.
@@ -1013,15 +1013,15 @@ public interface Atl2javaPackage extends EPackage {
 	EReference getOutputPatternElement_Bindings();
 
 	/**
-	 * Returns the meta object for the attribute '{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.OutputPatternElement#getVar <em>Var</em>}'.
+	 * Returns the meta object for the attribute '{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.OutputPatternElement#getName <em>Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Var</em>'.
-	 * @see at.ac.tuwien.big.ame13.atl2java.atl2javamm.OutputPatternElement#getVar()
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see at.ac.tuwien.big.ame13.atl2java.atl2javamm.OutputPatternElement#getName()
 	 * @see #getOutputPatternElement()
 	 * @generated
 	 */
-	EAttribute getOutputPatternElement_Var();
+	EAttribute getOutputPatternElement_Name();
 
 	/**
 	 * Returns the meta object for the attribute '{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.OutputPatternElement#getType <em>Type</em>}'.
@@ -1423,12 +1423,12 @@ public interface Atl2javaPackage extends EPackage {
 		EReference INPUT_PATTERN_ELEMENT__INPUT_PATTERN = eINSTANCE.getInputPatternElement_InputPattern();
 
 		/**
-		 * The meta object literal for the '<em><b>Var</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute INPUT_PATTERN_ELEMENT__VAR = eINSTANCE.getInputPatternElement_Var();
+		EAttribute INPUT_PATTERN_ELEMENT__NAME = eINSTANCE.getInputPatternElement_Name();
 
 		/**
 		 * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
@@ -1473,12 +1473,12 @@ public interface Atl2javaPackage extends EPackage {
 		EReference OUTPUT_PATTERN_ELEMENT__BINDINGS = eINSTANCE.getOutputPatternElement_Bindings();
 
 		/**
-		 * The meta object literal for the '<em><b>Var</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute OUTPUT_PATTERN_ELEMENT__VAR = eINSTANCE.getOutputPatternElement_Var();
+		EAttribute OUTPUT_PATTERN_ELEMENT__NAME = eINSTANCE.getOutputPatternElement_Name();
 
 		/**
 		 * The meta object literal for the '<em><b>Type</b></em>' attribute feature.

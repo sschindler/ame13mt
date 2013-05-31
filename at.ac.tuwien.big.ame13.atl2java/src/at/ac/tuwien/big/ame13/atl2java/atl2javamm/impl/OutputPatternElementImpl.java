@@ -34,7 +34,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.impl.OutputPatternElementImpl#getOuputPattern <em>Ouput Pattern</em>}</li>
  *   <li>{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.impl.OutputPatternElementImpl#getBindings <em>Bindings</em>}</li>
- *   <li>{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.impl.OutputPatternElementImpl#getVar <em>Var</em>}</li>
+ *   <li>{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.impl.OutputPatternElementImpl#getName <em>Name</em>}</li>
  *   <li>{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.impl.OutputPatternElementImpl#getType <em>Type</em>}</li>
  *   <li>{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.impl.OutputPatternElementImpl#getMetamodel <em>Metamodel</em>}</li>
  * </ul>
@@ -54,24 +54,24 @@ public class OutputPatternElementImpl extends EObjectImpl implements OutputPatte
 	protected EList<Binding> bindings;
 
 	/**
-	 * The default value of the '{@link #getVar() <em>Var</em>}' attribute.
+	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getVar()
+	 * @see #getName()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String VAR_EDEFAULT = null;
+	protected static final String NAME_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getVar() <em>Var</em>}' attribute.
+	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getVar()
+	 * @see #getName()
 	 * @generated
 	 * @ordered
 	 */
-	protected String var = VAR_EDEFAULT;
+	protected String name = NAME_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getType() <em>Type</em>}' attribute.
@@ -180,8 +180,8 @@ public class OutputPatternElementImpl extends EObjectImpl implements OutputPatte
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getVar() {
-		return var;
+	public String getName() {
+		return name;
 	}
 
 	/**
@@ -189,11 +189,11 @@ public class OutputPatternElementImpl extends EObjectImpl implements OutputPatte
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setVar(String newVar) {
-		String oldVar = var;
-		var = newVar;
+	public void setName(String newName) {
+		String oldName = name;
+		name = newName;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Atl2javaPackage.OUTPUT_PATTERN_ELEMENT__VAR, oldVar, var));
+			eNotify(new ENotificationImpl(this, Notification.SET, Atl2javaPackage.OUTPUT_PATTERN_ELEMENT__NAME, oldName, name));
 	}
 
 	/**
@@ -316,8 +316,8 @@ public class OutputPatternElementImpl extends EObjectImpl implements OutputPatte
 				return getOuputPattern();
 			case Atl2javaPackage.OUTPUT_PATTERN_ELEMENT__BINDINGS:
 				return getBindings();
-			case Atl2javaPackage.OUTPUT_PATTERN_ELEMENT__VAR:
-				return getVar();
+			case Atl2javaPackage.OUTPUT_PATTERN_ELEMENT__NAME:
+				return getName();
 			case Atl2javaPackage.OUTPUT_PATTERN_ELEMENT__TYPE:
 				return getType();
 			case Atl2javaPackage.OUTPUT_PATTERN_ELEMENT__METAMODEL:
@@ -343,8 +343,8 @@ public class OutputPatternElementImpl extends EObjectImpl implements OutputPatte
 				getBindings().clear();
 				getBindings().addAll((Collection<? extends Binding>)newValue);
 				return;
-			case Atl2javaPackage.OUTPUT_PATTERN_ELEMENT__VAR:
-				setVar((String)newValue);
+			case Atl2javaPackage.OUTPUT_PATTERN_ELEMENT__NAME:
+				setName((String)newValue);
 				return;
 			case Atl2javaPackage.OUTPUT_PATTERN_ELEMENT__TYPE:
 				setType((String)newValue);
@@ -370,8 +370,8 @@ public class OutputPatternElementImpl extends EObjectImpl implements OutputPatte
 			case Atl2javaPackage.OUTPUT_PATTERN_ELEMENT__BINDINGS:
 				getBindings().clear();
 				return;
-			case Atl2javaPackage.OUTPUT_PATTERN_ELEMENT__VAR:
-				setVar(VAR_EDEFAULT);
+			case Atl2javaPackage.OUTPUT_PATTERN_ELEMENT__NAME:
+				setName(NAME_EDEFAULT);
 				return;
 			case Atl2javaPackage.OUTPUT_PATTERN_ELEMENT__TYPE:
 				setType(TYPE_EDEFAULT);
@@ -395,8 +395,8 @@ public class OutputPatternElementImpl extends EObjectImpl implements OutputPatte
 				return getOuputPattern() != null;
 			case Atl2javaPackage.OUTPUT_PATTERN_ELEMENT__BINDINGS:
 				return bindings != null && !bindings.isEmpty();
-			case Atl2javaPackage.OUTPUT_PATTERN_ELEMENT__VAR:
-				return VAR_EDEFAULT == null ? var != null : !VAR_EDEFAULT.equals(var);
+			case Atl2javaPackage.OUTPUT_PATTERN_ELEMENT__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case Atl2javaPackage.OUTPUT_PATTERN_ELEMENT__TYPE:
 				return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
 			case Atl2javaPackage.OUTPUT_PATTERN_ELEMENT__METAMODEL:
@@ -415,8 +415,8 @@ public class OutputPatternElementImpl extends EObjectImpl implements OutputPatte
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (var: ");
-		result.append(var);
+		result.append(" (name: ");
+		result.append(name);
 		result.append(", type: ");
 		result.append(type);
 		result.append(')');

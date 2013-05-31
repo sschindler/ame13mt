@@ -26,7 +26,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
  * The following features are implemented:
  * <ul>
  *   <li>{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.impl.InputPatternElementImpl#getInputPattern <em>Input Pattern</em>}</li>
- *   <li>{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.impl.InputPatternElementImpl#getVar <em>Var</em>}</li>
+ *   <li>{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.impl.InputPatternElementImpl#getName <em>Name</em>}</li>
  *   <li>{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.impl.InputPatternElementImpl#getType <em>Type</em>}</li>
  *   <li>{@link at.ac.tuwien.big.ame13.atl2java.atl2javamm.impl.InputPatternElementImpl#getMetamodel <em>Metamodel</em>}</li>
  * </ul>
@@ -36,24 +36,24 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
  */
 public class InputPatternElementImpl extends EObjectImpl implements InputPatternElement {
 	/**
-	 * The default value of the '{@link #getVar() <em>Var</em>}' attribute.
+	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getVar()
+	 * @see #getName()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String VAR_EDEFAULT = null;
+	protected static final String NAME_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getVar() <em>Var</em>}' attribute.
+	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getVar()
+	 * @see #getName()
 	 * @generated
 	 * @ordered
 	 */
-	protected String var = VAR_EDEFAULT;
+	protected String name = NAME_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getType() <em>Type</em>}' attribute.
@@ -150,8 +150,8 @@ public class InputPatternElementImpl extends EObjectImpl implements InputPattern
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getVar() {
-		return var;
+	public String getName() {
+		return name;
 	}
 
 	/**
@@ -159,11 +159,11 @@ public class InputPatternElementImpl extends EObjectImpl implements InputPattern
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setVar(String newVar) {
-		String oldVar = var;
-		var = newVar;
+	public void setName(String newName) {
+		String oldName = name;
+		name = newName;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Atl2javaPackage.INPUT_PATTERN_ELEMENT__VAR, oldVar, var));
+			eNotify(new ENotificationImpl(this, Notification.SET, Atl2javaPackage.INPUT_PATTERN_ELEMENT__NAME, oldName, name));
 	}
 
 	/**
@@ -279,8 +279,8 @@ public class InputPatternElementImpl extends EObjectImpl implements InputPattern
 		switch (featureID) {
 			case Atl2javaPackage.INPUT_PATTERN_ELEMENT__INPUT_PATTERN:
 				return getInputPattern();
-			case Atl2javaPackage.INPUT_PATTERN_ELEMENT__VAR:
-				return getVar();
+			case Atl2javaPackage.INPUT_PATTERN_ELEMENT__NAME:
+				return getName();
 			case Atl2javaPackage.INPUT_PATTERN_ELEMENT__TYPE:
 				return getType();
 			case Atl2javaPackage.INPUT_PATTERN_ELEMENT__METAMODEL:
@@ -301,8 +301,8 @@ public class InputPatternElementImpl extends EObjectImpl implements InputPattern
 			case Atl2javaPackage.INPUT_PATTERN_ELEMENT__INPUT_PATTERN:
 				setInputPattern((InputPattern)newValue);
 				return;
-			case Atl2javaPackage.INPUT_PATTERN_ELEMENT__VAR:
-				setVar((String)newValue);
+			case Atl2javaPackage.INPUT_PATTERN_ELEMENT__NAME:
+				setName((String)newValue);
 				return;
 			case Atl2javaPackage.INPUT_PATTERN_ELEMENT__TYPE:
 				setType((String)newValue);
@@ -325,8 +325,8 @@ public class InputPatternElementImpl extends EObjectImpl implements InputPattern
 			case Atl2javaPackage.INPUT_PATTERN_ELEMENT__INPUT_PATTERN:
 				setInputPattern((InputPattern)null);
 				return;
-			case Atl2javaPackage.INPUT_PATTERN_ELEMENT__VAR:
-				setVar(VAR_EDEFAULT);
+			case Atl2javaPackage.INPUT_PATTERN_ELEMENT__NAME:
+				setName(NAME_EDEFAULT);
 				return;
 			case Atl2javaPackage.INPUT_PATTERN_ELEMENT__TYPE:
 				setType(TYPE_EDEFAULT);
@@ -348,8 +348,8 @@ public class InputPatternElementImpl extends EObjectImpl implements InputPattern
 		switch (featureID) {
 			case Atl2javaPackage.INPUT_PATTERN_ELEMENT__INPUT_PATTERN:
 				return getInputPattern() != null;
-			case Atl2javaPackage.INPUT_PATTERN_ELEMENT__VAR:
-				return VAR_EDEFAULT == null ? var != null : !VAR_EDEFAULT.equals(var);
+			case Atl2javaPackage.INPUT_PATTERN_ELEMENT__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case Atl2javaPackage.INPUT_PATTERN_ELEMENT__TYPE:
 				return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
 			case Atl2javaPackage.INPUT_PATTERN_ELEMENT__METAMODEL:
@@ -368,8 +368,8 @@ public class InputPatternElementImpl extends EObjectImpl implements InputPattern
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (var: ");
-		result.append(var);
+		result.append(" (name: ");
+		result.append(name);
 		result.append(", type: ");
 		result.append(type);
 		result.append(')');

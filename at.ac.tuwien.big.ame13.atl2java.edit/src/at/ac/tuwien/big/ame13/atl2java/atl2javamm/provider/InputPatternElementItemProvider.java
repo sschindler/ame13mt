@@ -60,7 +60,7 @@ public class InputPatternElementItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addVarPropertyDescriptor(object);
+			addNamePropertyDescriptor(object);
 			addTypePropertyDescriptor(object);
 			addMetamodelPropertyDescriptor(object);
 		}
@@ -68,19 +68,19 @@ public class InputPatternElementItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Var feature.
+	 * This adds a property descriptor for the Name feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addVarPropertyDescriptor(Object object) {
+	protected void addNamePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_InputPatternElement_var_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_InputPatternElement_var_feature", "_UI_InputPatternElement_type"),
-				 Atl2javaPackage.Literals.INPUT_PATTERN_ELEMENT__VAR,
+				 getString("_UI_InputPatternElement_name_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_InputPatternElement_name_feature", "_UI_InputPatternElement_type"),
+				 Atl2javaPackage.Literals.INPUT_PATTERN_ELEMENT__NAME,
 				 true,
 				 false,
 				 false,
@@ -152,7 +152,7 @@ public class InputPatternElementItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((InputPatternElement)object).getVar();
+		String label = ((InputPatternElement)object).getName();
 		return label == null || label.length() == 0 ?
 			getString("_UI_InputPatternElement_type") :
 			getString("_UI_InputPatternElement_type") + " " + label;
@@ -170,7 +170,7 @@ public class InputPatternElementItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(InputPatternElement.class)) {
-			case Atl2javaPackage.INPUT_PATTERN_ELEMENT__VAR:
+			case Atl2javaPackage.INPUT_PATTERN_ELEMENT__NAME:
 			case Atl2javaPackage.INPUT_PATTERN_ELEMENT__TYPE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;

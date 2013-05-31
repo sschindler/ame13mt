@@ -76,7 +76,7 @@
     <children xmi:type="notation:Node" xmi:id="_RDUvYzdKEeK5oMN2qBQRaA" type="4001"/>
     <children xmi:type="notation:Node" xmi:id="_RDa2ADdKEeK5oMN2qBQRaA" type="5001">
       <children xmi:type="notation:Node" xmi:id="_JTfgcDdLEeK5oMN2qBQRaA" type="2001">
-        <element xmi:type="ecore:EAttribute" href="atl2java.ecore#//InputPatternElement/var"/>
+        <element xmi:type="ecore:EAttribute" href="atl2java.ecore#//InputPatternElement/name"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="_JTfgcTdLEeK5oMN2qBQRaA"/>
       </children>
       <children xmi:type="notation:Node" xmi:id="_QecrQDdLEeK5oMN2qBQRaA" type="2001">
@@ -100,7 +100,7 @@
     <children xmi:type="notation:Node" xmi:id="_SAvZ4zdKEeK5oMN2qBQRaA" type="4001"/>
     <children xmi:type="notation:Node" xmi:id="_SAvZ5DdKEeK5oMN2qBQRaA" type="5001">
       <children xmi:type="notation:Node" xmi:id="_SI5a4DdLEeK5oMN2qBQRaA" type="2001">
-        <element xmi:type="ecore:EAttribute" href="atl2java.ecore#//OutputPatternElement/var"/>
+        <element xmi:type="ecore:EAttribute" href="atl2java.ecore#//OutputPatternElement/name"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="_SI5a4TdLEeK5oMN2qBQRaA"/>
       </children>
       <children xmi:type="notation:Node" xmi:id="_TMtoUDdLEeK5oMN2qBQRaA" type="2001">
@@ -573,10 +573,10 @@
   </edges>
   <edges xmi:type="notation:Edge" xmi:id="__uwwMMkpEeK_zpUHeO-AVA" type="3002" source="_nh2ZUL7uEeKoa-6tXBlz8w" target="_SAvZ4DdKEeK5oMN2qBQRaA">
     <children xmi:type="notation:Node" xmi:id="__uwwNMkpEeK_zpUHeO-AVA" type="4011">
-      <layoutConstraint xmi:type="notation:Location" xmi:id="__uwwNckpEeK_zpUHeO-AVA" x="-10" y="-10"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="__uwwNckpEeK_zpUHeO-AVA" x="22" y="-12"/>
     </children>
     <children xmi:type="notation:Node" xmi:id="__uwwNskpEeK_zpUHeO-AVA" type="4012">
-      <layoutConstraint xmi:type="notation:Location" xmi:id="__uwwN8kpEeK_zpUHeO-AVA" x="10" y="10"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="__uwwN8kpEeK_zpUHeO-AVA" x="33" y="-27"/>
     </children>
     <styles xmi:type="notation:ConnectorStyle" xmi:id="__uwwMckpEeK_zpUHeO-AVA" lineColor="4210752"/>
     <styles xmi:type="notation:FontStyle" xmi:id="__uwwMskpEeK_zpUHeO-AVA" fontColor="4210752" fontHeight="10"/>

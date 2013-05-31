@@ -63,7 +63,7 @@ public class OutputPatternElementItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addVarPropertyDescriptor(object);
+			addNamePropertyDescriptor(object);
 			addTypePropertyDescriptor(object);
 			addMetamodelPropertyDescriptor(object);
 		}
@@ -71,19 +71,19 @@ public class OutputPatternElementItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Var feature.
+	 * This adds a property descriptor for the Name feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addVarPropertyDescriptor(Object object) {
+	protected void addNamePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_OutputPatternElement_var_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_OutputPatternElement_var_feature", "_UI_OutputPatternElement_type"),
-				 Atl2javaPackage.Literals.OUTPUT_PATTERN_ELEMENT__VAR,
+				 getString("_UI_OutputPatternElement_name_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_OutputPatternElement_name_feature", "_UI_OutputPatternElement_type"),
+				 Atl2javaPackage.Literals.OUTPUT_PATTERN_ELEMENT__NAME,
 				 true,
 				 false,
 				 false,
@@ -185,7 +185,7 @@ public class OutputPatternElementItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((OutputPatternElement)object).getVar();
+		String label = ((OutputPatternElement)object).getName();
 		return label == null || label.length() == 0 ?
 			getString("_UI_OutputPatternElement_type") :
 			getString("_UI_OutputPatternElement_type") + " " + label;
@@ -203,7 +203,7 @@ public class OutputPatternElementItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(OutputPatternElement.class)) {
-			case Atl2javaPackage.OUTPUT_PATTERN_ELEMENT__VAR:
+			case Atl2javaPackage.OUTPUT_PATTERN_ELEMENT__NAME:
 			case Atl2javaPackage.OUTPUT_PATTERN_ELEMENT__TYPE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;

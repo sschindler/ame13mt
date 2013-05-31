@@ -62,6 +62,7 @@ public class InputPatternElementItemProvider
 
 			addVarPropertyDescriptor(object);
 			addTypePropertyDescriptor(object);
+			addMetamodelPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -106,6 +107,28 @@ public class InputPatternElementItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Metamodel feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addMetamodelPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_InputPatternElement_metamodel_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_InputPatternElement_metamodel_feature", "_UI_InputPatternElement_type"),
+				 Atl2javaPackage.Literals.INPUT_PATTERN_ELEMENT__METAMODEL,
+				 true,
+				 false,
+				 true,
+				 null,
 				 null,
 				 null));
 	}

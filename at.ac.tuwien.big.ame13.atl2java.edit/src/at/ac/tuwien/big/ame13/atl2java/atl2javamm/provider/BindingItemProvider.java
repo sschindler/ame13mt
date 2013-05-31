@@ -61,7 +61,6 @@ public class BindingItemProvider
 			super.getPropertyDescriptors(object);
 
 			addFeaturePropertyDescriptor(object);
-			addValuePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -80,28 +79,6 @@ public class BindingItemProvider
 				 getString("_UI_Binding_feature_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_Binding_feature_feature", "_UI_Binding_type"),
 				 Atl2javaPackage.Literals.BINDING__FEATURE,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Value feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addValuePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_Binding_value_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Binding_value_feature", "_UI_Binding_type"),
-				 Atl2javaPackage.Literals.BINDING__VALUE,
 				 true,
 				 false,
 				 false,
@@ -137,7 +114,6 @@ public class BindingItemProvider
 
 		switch (notification.getFeatureID(Binding.class)) {
 			case Atl2javaPackage.BINDING__FEATURE:
-			case Atl2javaPackage.BINDING__VALUE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

@@ -151,7 +151,7 @@ class Atl2javaGenerator implements IGenerator {
 				srcObj = srcElements«ipe.type».get(i);
 				tse = tFactory.createTransientElement();
 				tse.setValue(srcObj);
-				tse.setVar("«ipe.^var»");
+				tse.setVar("«ipe.name»");
 				tl.getSourceElements().add(tse);
 				tLinkBySrcObj.put(srcObj, tl);
 				«ENDFOR»
@@ -160,48 +160,50 @@ class Atl2javaGenerator implements IGenerator {
 				trgObj = createTargetElement(trgMM, "«ope.type»");
 				tte = tFactory.createTransientElement();
 				tte.setValue(trgObj);
-				tte.setVar("«ope.^var»");
+				tte.setVar("«ope.name»");
 				tl.getTargetElements().add(tte);
 				
 				«FOR Binding binding : ope.bindings»
 				«IF binding instanceof PrimitiveBinding»
 				pBF = trgObj.eClass().getEStructuralFeature("«binding.feature»");
-				trgObj.eSet(pBF, "«binding.value»");
+				trgObj.eSet(pBF, "«(binding as PrimitiveBinding).value»");
 				«ELSEIF binding instanceof NavigationBinding»
-				if(nBindings.containsKey(trgObj)) {
-					nBHM = nBindings.get(trgObj);
-					if(!nBHM.containsKey("«binding.feature»")) {
-						nBHM.put("«binding.feature»", "«binding.value»");
-						nBindings.put(trgObj, nBHM);
-					}
-				} else {
-					nBHM = new HashMap<String,String>();
-					nBHM.put("«binding.feature»", "«binding.value»");
-					nBindings.put(trgObj, nBHM);
-				}
-				«ELSEIF binding instanceof OutputpatternElementBinding»
-				if(oPEBindings.containsKey(trgObj)) {
-					oPEBHM = oPEBindings.get(trgObj);
-					if(!oPEBHM.containsKey("«binding.feature»")) {
-						oPEBHM.put("«binding.feature»", "«binding.value»");
-						oPEBindings.put(trgObj, oPEBHM);
-					}
-				} else {
-					oPEBHM = new HashMap<String,String>();
-					oPEBHM.put("«binding.feature»", "«binding.value»");
-					oPEBindings.put(trgObj, oPEBHM);
-				}
-				«ELSEIF binding instanceof ResolveBinding»
+				«IF binding instanceof ResolveBinding»
 				if(rBindings.containsKey(trgObj)) {
 					rBHM = rBindings.get(trgObj);
 					if(!rBHM.containsKey("«binding.feature»")) {
-						rBHM.put("«binding.feature»", "«binding.value»");
+						rBHM.put("«binding.feature»", "«(binding as ResolveBinding).inputPatternElement.name».«(binding as ResolveBinding).value»");
 						rBindings.put(trgObj, rBHM);
 					}
 				} else {
 					rBHM = new HashMap<String,String>();
-					rBHM.put("«binding.feature»", "«binding.value»");
+					rBHM.put("«binding.feature»", "«(binding as ResolveBinding).inputPatternElement.name».«(binding as ResolveBinding).value»");
 					rBindings.put(trgObj, rBHM);
+				}
+				«ELSE»
+				if(nBindings.containsKey(trgObj)) {
+					nBHM = nBindings.get(trgObj);
+					if(!nBHM.containsKey("«binding.feature»")) {
+						nBHM.put("«binding.feature»", "«(binding as NavigationBinding).inputPatternElement.name».«(binding as NavigationBinding).value»");
+						nBindings.put(trgObj, nBHM);
+					}
+				} else {
+					nBHM = new HashMap<String,String>();
+					nBHM.put("«binding.feature»", "«(binding as NavigationBinding).inputPatternElement.name».«(binding as NavigationBinding).value»");
+					nBindings.put(trgObj, nBHM);
+				}
+				«ENDIF»
+				«ELSEIF binding instanceof OutputpatternElementBinding»
+				if(oPEBindings.containsKey(trgObj)) {
+					oPEBHM = oPEBindings.get(trgObj);
+					if(!oPEBHM.containsKey("«binding.feature»")) {
+						oPEBHM.put("«binding.feature»", "«(binding as OutputpatternElementBinding).value.name»");
+						oPEBindings.put(trgObj, oPEBHM);
+					}
+				} else {
+					oPEBHM = new HashMap<String,String>();
+					oPEBHM.put("«binding.feature»", "«(binding as OutputpatternElementBinding).value.name»");
+					oPEBindings.put(trgObj, oPEBHM);
 				}
 				«ENDIF»
 				«ENDFOR»

@@ -9,34 +9,40 @@
   <rules name="Model2Model">
     <inputPattern>
       <inputPatternElements
-          var="ma"
-          type="Model"/>
+          name="ma"
+          type="Model"
+          metamodel="//@sourceModel"/>
     </inputPattern>
     <outputPattern>
       <outputPatternElements
-          var="mb"
-          type="Model">
+          name="mb"
+          type="Model"
+          metamodel="//@targetModel">
         <bindings
             xsi:type="atl2java:ResolveBinding"
             feature="b"
-            value="ma.a"/>
+            inputPatternElement="//@rules.0/@inputPattern/@inputPatternElements.0"
+            value="a"/>
       </outputPatternElements>
     </outputPattern>
   </rules>
   <rules name="A2B">
     <inputPattern>
       <inputPatternElements
-          var="a"
-          type="A"/>
+          name="a"
+          type="A"
+          metamodel="//@sourceModel"/>
     </inputPattern>
     <outputPattern>
       <outputPatternElements
-          var="b"
-          type="B">
+          name="b"
+          type="B"
+          metamodel="//@targetModel">
         <bindings
             xsi:type="atl2java:NavigationBinding"
             feature="id"
-            value="a.name"/>
+            inputPatternElement="//@rules.1/@inputPattern/@inputPatternElements.0"
+            value="name"/>
       </outputPatternElements>
     </outputPattern>
   </rules>

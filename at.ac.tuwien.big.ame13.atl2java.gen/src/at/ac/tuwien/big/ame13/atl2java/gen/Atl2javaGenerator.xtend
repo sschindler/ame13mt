@@ -132,6 +132,7 @@ class Atl2javaGenerator implements IGenerator {
 			HashMap<EObject,TransientLink> tLinkBySrcObj = new HashMap<EObject,TransientLink>();
 			
 			«FOR Rule rule : t.rules»
+			// contains the number of source elements defined by each input pattern type of this rule
 			sizeList = new ArrayList<Integer>();
 				«FOR InputPatternElement ipe : rule.inputPattern.inputPatternElements»
 				Vector<EObject> srcElements«ipe.type» = sourceElements.get("«ipe.type»");
@@ -155,7 +156,8 @@ class Atl2javaGenerator implements IGenerator {
 				tl.getSourceElements().add(tse);
 				tLinkBySrcObj.put(srcObj, tl);
 				«ENDFOR»
-
+				
+				// creating all target elements and saving the transient target elements in the link
 				«FOR OutputPatternElement ope : rule.outputPattern.outputPatternElements»
 				trgObj = createTargetElement(trgMM, "«ope.type»");
 				tte = tFactory.createTransientElement();
@@ -171,6 +173,7 @@ class Atl2javaGenerator implements IGenerator {
 				«IF binding instanceof ResolveBinding»
 				if(rBindings.containsKey(trgObj)) {
 					rBHM = rBindings.get(trgObj);
+					// if there is already a resolve binding for this feature don't overwrite the existing value
 					if(!rBHM.containsKey("«binding.feature»")) {
 						rBHM.put("«binding.feature»", "«(binding as ResolveBinding).inputPatternElement.name».«(binding as ResolveBinding).value»");
 						rBindings.put(trgObj, rBHM);
@@ -183,6 +186,7 @@ class Atl2javaGenerator implements IGenerator {
 				«ELSE»
 				if(nBindings.containsKey(trgObj)) {
 					nBHM = nBindings.get(trgObj);
+					// if there is already a navigation binding for this feature don't overwrite the existing value
 					if(!nBHM.containsKey("«binding.feature»")) {
 						nBHM.put("«binding.feature»", "«(binding as NavigationBinding).inputPatternElement.name».«(binding as NavigationBinding).value»");
 						nBindings.put(trgObj, nBHM);
@@ -196,6 +200,7 @@ class Atl2javaGenerator implements IGenerator {
 				«ELSEIF binding instanceof OutputpatternElementBinding»
 				if(oPEBindings.containsKey(trgObj)) {
 					oPEBHM = oPEBindings.get(trgObj);
+					// if there is already a output pattern element binding for this feature don't overwrite the existing value
 					if(!oPEBHM.containsKey("«binding.feature»")) {
 						oPEBHM.put("«binding.feature»", "«(binding as OutputpatternElementBinding).value.name»");
 						oPEBindings.put(trgObj, oPEBHM);
@@ -227,10 +232,12 @@ class Atl2javaGenerator implements IGenerator {
 						Set<String> nBindingFeatures = nBinding.keySet();
 						for(String nBindingFeature : nBindingFeatures) {
 							EStructuralFeature f = obj.eClass().getEStructuralFeature(nBindingFeature);
+							
+							// navigation string: var.feature
 							String[] navigation = nBinding.get(nBindingFeature).split("\\.");
 							
 							EObject navElement = null;
-							// TODO tl.getSourceElementByVar(navigation[0]) in TransientLinkImpl.java faulty (getValue() instead of getVar())
+							// tl.getSourceElementByVar(navigation[0]) in TransientLinkImpl.java faulty (getValue() instead of getVar())
 							EList<TransientElement> tempList = tl.getSourceElements();
 							for(TransientElement tempTE : tempList) {
 								if(tempTE.getVar().equals(navigation[0])) {
@@ -239,20 +246,9 @@ class Atl2javaGenerator implements IGenerator {
 								}
 							}
 							
-							if(navElement == null) {
-								// navigation by target element
-								tempList = tl.getTargetElements();
-								for(TransientElement tempTE : tempList) {
-									if(tempTE.getVar().equals(navigation[0])) {
-										navElement = tempTE.getValue();
-										break;
-									}
-								}
-							}
-							
 							EStructuralFeature f2 = navElement.eClass().getEStructuralFeature(navigation[1]);
 							Object f2Value = navElement.eGet(f2);
-							// f2Value instanceof String
+							// f2Value of primitve type (e.g. f2Value instanceof String)
 							obj.eSet(f, f2Value);
 						}
 					}
@@ -261,10 +257,11 @@ class Atl2javaGenerator implements IGenerator {
 						Set<String> oPEBindingFeatures = oPEBinding.keySet();
 						for(String oPEBindingFeature : oPEBindingFeatures) {
 							EStructuralFeature f = obj.eClass().getEStructuralFeature(oPEBindingFeature);
+							
+							// output pattern element string: var
 							String var = oPEBinding.get(oPEBindingFeature);
 							
 							EObject varElement = null;
-							
 							// search target elements
 							EList<TransientElement> tempList = tl.getTargetElements();
 							for(TransientElement tempTE : tempList) {
@@ -282,6 +279,8 @@ class Atl2javaGenerator implements IGenerator {
 						Set<String> rBindingFeatures = rBinding.keySet();
 						for(String rBindingFeature : rBindingFeatures) {
 							EStructuralFeature f = obj.eClass().getEStructuralFeature(rBindingFeature);
+							
+							// resolve string: var.feature
 							String[] navigation = rBinding.get(rBindingFeature).split("\\.");
 							
 							EObject resElement = null;
@@ -293,56 +292,45 @@ class Atl2javaGenerator implements IGenerator {
 								}
 							}
 							
-							boolean resFromTargetElements = false;
-							
-							if(resElement == null) {
-								// resolving by target element
-								tempList = tl.getTargetElements();
-								for(TransientElement tempTE : tempList) {
-									if(tempTE.getVar().equals(navigation[0])) {
-										resElement = tempTE.getValue();
-										resFromTargetElements = true;
-										break;
-									}
-								}
-							}
-							
 							EStructuralFeature f2 = resElement.eClass().getEStructuralFeature(navigation[1]);
 							Object f2Value = resElement.eGet(f2);
+							
 							// TODO Test for EObject or Object
-							if(f2Value instanceof EObject) {
-								if(!resFromTargetElements) {
-									EObject f2Object = (EObject) f2Value;
-									TransientLink tlTemp = tLinkBySrcObj.get(f2Object);
-									EList<TransientElement> targets = tlTemp.getTargetElements();
-									if(targets.size() > 1) {
-										Vector<EObject> f2TList = new Vector<EObject>();
-										for(TransientElement target : targets) {
-											f2TList.add(target.getValue());
-										}
-										obj.eSet(f, f2TList);
-									} else {
-										EObject f2TObject = targets.get(0).getValue();
-										obj.eSet(f, f2TObject);
-									}
-								} else {
-									obj.eSet(f, f2Value);
-								}
-							} else if(f2Value instanceof EList) {
-								if(!resFromTargetElements) {
-									EList<EObject> f2List = (EList<EObject>) f2Value;
+							if(f2Value instanceof EObject) 
+							{
+								// f2Value is one object
+								
+								EObject f2Object = (EObject) f2Value;
+								TransientLink tlTemp = tLinkBySrcObj.get(f2Object);
+								
+								EList<TransientElement> targets = tlTemp.getTargetElements();
+								if(targets.size() > 1) {
 									Vector<EObject> f2TList = new Vector<EObject>();
-									for(EObject srcElement : f2List) {
-										TransientLink tlTemp = tLinkBySrcObj.get(srcElement);
-										EList<TransientElement> targets = tlTemp.getTargetElements();
-										for(TransientElement target : targets) {
-											f2TList.add(target.getValue());
-										}
+									for(TransientElement target : targets) {
+										f2TList.add(target.getValue());
 									}
 									obj.eSet(f, f2TList);
 								} else {
-									obj.eSet(f, f2Value);
+									EObject f2TObject = targets.get(0).getValue();
+									obj.eSet(f, f2TObject);
 								}
+							}
+							else if(f2Value instanceof EList)
+							{
+								// f2Value is a list of objects
+								
+								EList<EObject> f2List = (EList<EObject>) f2Value;
+								
+								Vector<EObject> f2TList = new Vector<EObject>();
+								for(EObject srcElement : f2List) {
+									TransientLink tlTemp = tLinkBySrcObj.get(srcElement);
+									EList<TransientElement> targets = tlTemp.getTargetElements();
+									for(TransientElement target : targets) {
+										f2TList.add(target.getValue());
+									}
+								}
+								
+								obj.eSet(f, f2TList);
 							}
 						}
 					}

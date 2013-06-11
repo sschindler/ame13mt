@@ -103,6 +103,7 @@ public class A2BTransformation {
 		// HashMap<srcObject,transientlink>
 		HashMap<EObject,TransientLink> tLinkBySrcObj = new HashMap<EObject,TransientLink>();
 		
+		// contains the number of source elements defined by each input pattern type of this rule
 		sizeList = new ArrayList<Integer>();
 			Vector<EObject> srcElementsModel = sourceElements.get("Model");
 			sizeList.add(srcElementsModel.size());
@@ -122,7 +123,8 @@ public class A2BTransformation {
 			tse.setVar("ma");
 			tl.getSourceElements().add(tse);
 			tLinkBySrcObj.put(srcObj, tl);
-
+			
+			// creating all target elements and saving the transient target elements in the link
 			trgObj = createTargetElement(trgMM, "Model");
 			tte = tFactory.createTransientElement();
 			tte.setValue(trgObj);
@@ -131,6 +133,7 @@ public class A2BTransformation {
 			
 			if(rBindings.containsKey(trgObj)) {
 				rBHM = rBindings.get(trgObj);
+				// if there is already a resolve binding for this feature don't overwrite the existing value
 				if(!rBHM.containsKey("b")) {
 					rBHM.put("b", "ma.a");
 					rBindings.put(trgObj, rBHM);
@@ -142,6 +145,7 @@ public class A2BTransformation {
 			}
 			tls.getTransientLinks().add(tl);
 		}
+		// contains the number of source elements defined by each input pattern type of this rule
 		sizeList = new ArrayList<Integer>();
 			Vector<EObject> srcElementsA = sourceElements.get("A");
 			sizeList.add(srcElementsA.size());
@@ -161,7 +165,8 @@ public class A2BTransformation {
 			tse.setVar("a");
 			tl.getSourceElements().add(tse);
 			tLinkBySrcObj.put(srcObj, tl);
-
+			
+			// creating all target elements and saving the transient target elements in the link
 			trgObj = createTargetElement(trgMM, "B");
 			tte = tFactory.createTransientElement();
 			tte.setValue(trgObj);
@@ -170,6 +175,7 @@ public class A2BTransformation {
 			
 			if(nBindings.containsKey(trgObj)) {
 				nBHM = nBindings.get(trgObj);
+				// if there is already a navigation binding for this feature don't overwrite the existing value
 				if(!nBHM.containsKey("id")) {
 					nBHM.put("id", "a.name");
 					nBindings.put(trgObj, nBHM);
@@ -197,10 +203,12 @@ public class A2BTransformation {
 					Set<String> nBindingFeatures = nBinding.keySet();
 					for(String nBindingFeature : nBindingFeatures) {
 						EStructuralFeature f = obj.eClass().getEStructuralFeature(nBindingFeature);
+						
+						// navigation string: var.feature
 						String[] navigation = nBinding.get(nBindingFeature).split("\\.");
 						
 						EObject navElement = null;
-						// TODO tl.getSourceElementByVar(navigation[0]) in TransientLinkImpl.java faulty (getValue() instead of getVar())
+						// tl.getSourceElementByVar(navigation[0]) in TransientLinkImpl.java faulty (getValue() instead of getVar())
 						EList<TransientElement> tempList = tl.getSourceElements();
 						for(TransientElement tempTE : tempList) {
 							if(tempTE.getVar().equals(navigation[0])) {
@@ -209,20 +217,9 @@ public class A2BTransformation {
 							}
 						}
 						
-						if(navElement == null) {
-							// navigation by target element
-							tempList = tl.getTargetElements();
-							for(TransientElement tempTE : tempList) {
-								if(tempTE.getVar().equals(navigation[0])) {
-									navElement = tempTE.getValue();
-									break;
-								}
-							}
-						}
-						
 						EStructuralFeature f2 = navElement.eClass().getEStructuralFeature(navigation[1]);
 						Object f2Value = navElement.eGet(f2);
-						// f2Value instanceof String
+						// f2Value of primitve type (e.g. f2Value instanceof String)
 						obj.eSet(f, f2Value);
 					}
 				}
@@ -231,10 +228,11 @@ public class A2BTransformation {
 					Set<String> oPEBindingFeatures = oPEBinding.keySet();
 					for(String oPEBindingFeature : oPEBindingFeatures) {
 						EStructuralFeature f = obj.eClass().getEStructuralFeature(oPEBindingFeature);
+						
+						// output pattern element string: var
 						String var = oPEBinding.get(oPEBindingFeature);
 						
 						EObject varElement = null;
-						
 						// search target elements
 						EList<TransientElement> tempList = tl.getTargetElements();
 						for(TransientElement tempTE : tempList) {
@@ -252,6 +250,8 @@ public class A2BTransformation {
 					Set<String> rBindingFeatures = rBinding.keySet();
 					for(String rBindingFeature : rBindingFeatures) {
 						EStructuralFeature f = obj.eClass().getEStructuralFeature(rBindingFeature);
+						
+						// resolve string: var.feature
 						String[] navigation = rBinding.get(rBindingFeature).split("\\.");
 						
 						EObject resElement = null;
@@ -263,56 +263,45 @@ public class A2BTransformation {
 							}
 						}
 						
-						boolean resFromTargetElements = false;
-						
-						if(resElement == null) {
-							// resolving by target element
-							tempList = tl.getTargetElements();
-							for(TransientElement tempTE : tempList) {
-								if(tempTE.getVar().equals(navigation[0])) {
-									resElement = tempTE.getValue();
-									resFromTargetElements = true;
-									break;
-								}
-							}
-						}
-						
 						EStructuralFeature f2 = resElement.eClass().getEStructuralFeature(navigation[1]);
 						Object f2Value = resElement.eGet(f2);
+						
 						// TODO Test for EObject or Object
-						if(f2Value instanceof EObject) {
-							if(!resFromTargetElements) {
-								EObject f2Object = (EObject) f2Value;
-								TransientLink tlTemp = tLinkBySrcObj.get(f2Object);
-								EList<TransientElement> targets = tlTemp.getTargetElements();
-								if(targets.size() > 1) {
-									Vector<EObject> f2TList = new Vector<EObject>();
-									for(TransientElement target : targets) {
-										f2TList.add(target.getValue());
-									}
-									obj.eSet(f, f2TList);
-								} else {
-									EObject f2TObject = targets.get(0).getValue();
-									obj.eSet(f, f2TObject);
-								}
-							} else {
-								obj.eSet(f, f2Value);
-							}
-						} else if(f2Value instanceof EList) {
-							if(!resFromTargetElements) {
-								EList<EObject> f2List = (EList<EObject>) f2Value;
+						if(f2Value instanceof EObject) 
+						{
+							// f2Value is one object
+							
+							EObject f2Object = (EObject) f2Value;
+							TransientLink tlTemp = tLinkBySrcObj.get(f2Object);
+							
+							EList<TransientElement> targets = tlTemp.getTargetElements();
+							if(targets.size() > 1) {
 								Vector<EObject> f2TList = new Vector<EObject>();
-								for(EObject srcElement : f2List) {
-									TransientLink tlTemp = tLinkBySrcObj.get(srcElement);
-									EList<TransientElement> targets = tlTemp.getTargetElements();
-									for(TransientElement target : targets) {
-										f2TList.add(target.getValue());
-									}
+								for(TransientElement target : targets) {
+									f2TList.add(target.getValue());
 								}
 								obj.eSet(f, f2TList);
 							} else {
-								obj.eSet(f, f2Value);
+								EObject f2TObject = targets.get(0).getValue();
+								obj.eSet(f, f2TObject);
 							}
+						}
+						else if(f2Value instanceof EList)
+						{
+							// f2Value is a list of objects
+							
+							EList<EObject> f2List = (EList<EObject>) f2Value;
+							
+							Vector<EObject> f2TList = new Vector<EObject>();
+							for(EObject srcElement : f2List) {
+								TransientLink tlTemp = tLinkBySrcObj.get(srcElement);
+								EList<TransientElement> targets = tlTemp.getTargetElements();
+								for(TransientElement target : targets) {
+									f2TList.add(target.getValue());
+								}
+							}
+							
+							obj.eSet(f, f2TList);
 						}
 					}
 				}

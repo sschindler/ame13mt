@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="ASCII"?>
+<a:Model xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:a="http://a/1.0"
+    xsi:schemaLocation="http://a/1.0 A.ecore">
+  <a name="a1"/>
+  <a name="a2"/>
+  <a name="a3"/>
+</a:Model>

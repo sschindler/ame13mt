@@ -59,12 +59,15 @@ class Atl2javaGenerator implements IGenerator {
 	
 	public class «t.name.toFirstUpper»Transformation {
 	
+		private static String sourceModel = "testmodel/modelA.xmi";
+		private static String targetModel = "testmodel/outputmodel«t.name.toFirstUpper».xmi";
+	
 		@SuppressWarnings({ "unused", "unchecked" })
 		public static void main(String[] args) throws IOException {
 			
 			// load models
 			EMFModelLoader mLoader = new EMFModelLoader();
-			Resource srcM = mLoader.loadModel("«t.sourceModel.path»/«t.sourceModel.metamodel»", "testmodel/modelA.xmi");
+			Resource srcM = mLoader.loadModel("«t.sourceModel.path»/«t.sourceModel.metamodel»", sourceModel);
 			
 			// Resource srcMM = mLoader.loadMetamodel("«t.sourceModel.path»/«t.sourceModel.metamodel»");
 			
@@ -295,7 +298,6 @@ class Atl2javaGenerator implements IGenerator {
 							EStructuralFeature f2 = resElement.eClass().getEStructuralFeature(navigation[1]);
 							Object f2Value = resElement.eGet(f2);
 							
-							// TODO Test for EObject or Object
 							if(f2Value instanceof EObject) 
 							{
 								// f2Value is one object
@@ -303,16 +305,18 @@ class Atl2javaGenerator implements IGenerator {
 								EObject f2Object = (EObject) f2Value;
 								TransientLink tlTemp = tLinkBySrcObj.get(f2Object);
 								
-								EList<TransientElement> targets = tlTemp.getTargetElements();
-								if(targets.size() > 1) {
-									Vector<EObject> f2TList = new Vector<EObject>();
-									for(TransientElement target : targets) {
-										f2TList.add(target.getValue());
+								if(tlTemp != null) {
+									EList<TransientElement> targets = tlTemp.getTargetElements();
+									if(targets.size() > 1) {
+										Vector<EObject> f2TList = new Vector<EObject>();
+										for(TransientElement target : targets) {
+											f2TList.add(target.getValue());
+										}
+										obj.eSet(f, f2TList);
+									} else {
+										EObject f2TObject = targets.get(0).getValue();
+										obj.eSet(f, f2TObject);
 									}
-									obj.eSet(f, f2TList);
-								} else {
-									EObject f2TObject = targets.get(0).getValue();
-									obj.eSet(f, f2TObject);
 								}
 							}
 							else if(f2Value instanceof EList)
@@ -324,9 +328,11 @@ class Atl2javaGenerator implements IGenerator {
 								Vector<EObject> f2TList = new Vector<EObject>();
 								for(EObject srcElement : f2List) {
 									TransientLink tlTemp = tLinkBySrcObj.get(srcElement);
-									EList<TransientElement> targets = tlTemp.getTargetElements();
-									for(TransientElement target : targets) {
-										f2TList.add(target.getValue());
+									if(tlTemp != null) {
+										EList<TransientElement> targets = tlTemp.getTargetElements();
+										for(TransientElement target : targets) {
+											f2TList.add(target.getValue());
+										}
 									}
 								}
 								
@@ -365,7 +371,7 @@ class Atl2javaGenerator implements IGenerator {
 		private static void saveResource(EObject rootElement) throws IOException {
 			ResourceSet resourceSet = new ResourceSetImpl();
 			resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("xmi", new XMIResourceFactoryImpl());
-			Resource resource = resourceSet.createResource(URI.createFileURI("testmodel/modelB.xmi"));
+			Resource resource = resourceSet.createResource(URI.createFileURI(targetModel));
 			resource.getContents().add(rootElement);
 			resource.save(null);
 		}

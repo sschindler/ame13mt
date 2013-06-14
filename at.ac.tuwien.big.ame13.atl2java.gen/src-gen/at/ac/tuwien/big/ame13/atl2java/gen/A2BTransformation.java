@@ -31,12 +31,15 @@ import at.ac.tuwien.big.ame13.atl2java.gen.utility.EMFModelLoader;
 
 public class A2BTransformation {
 
+	private static String sourceModel = "testmodel/modelA.xmi";
+	private static String targetModel = "testmodel/outputmodelA2B.xmi";
+
 	@SuppressWarnings({ "unused", "unchecked" })
 	public static void main(String[] args) throws IOException {
 		
 		// load models
 		EMFModelLoader mLoader = new EMFModelLoader();
-		Resource srcM = mLoader.loadModel("testmodel/A.ecore", "testmodel/modelA.xmi");
+		Resource srcM = mLoader.loadModel("testmodel/A.ecore", sourceModel);
 		
 		// Resource srcMM = mLoader.loadMetamodel("testmodel/A.ecore");
 		
@@ -266,7 +269,6 @@ public class A2BTransformation {
 						EStructuralFeature f2 = resElement.eClass().getEStructuralFeature(navigation[1]);
 						Object f2Value = resElement.eGet(f2);
 						
-						// TODO Test for EObject or Object
 						if(f2Value instanceof EObject) 
 						{
 							// f2Value is one object
@@ -274,16 +276,18 @@ public class A2BTransformation {
 							EObject f2Object = (EObject) f2Value;
 							TransientLink tlTemp = tLinkBySrcObj.get(f2Object);
 							
-							EList<TransientElement> targets = tlTemp.getTargetElements();
-							if(targets.size() > 1) {
-								Vector<EObject> f2TList = new Vector<EObject>();
-								for(TransientElement target : targets) {
-									f2TList.add(target.getValue());
+							if(tlTemp != null) {
+								EList<TransientElement> targets = tlTemp.getTargetElements();
+								if(targets.size() > 1) {
+									Vector<EObject> f2TList = new Vector<EObject>();
+									for(TransientElement target : targets) {
+										f2TList.add(target.getValue());
+									}
+									obj.eSet(f, f2TList);
+								} else {
+									EObject f2TObject = targets.get(0).getValue();
+									obj.eSet(f, f2TObject);
 								}
-								obj.eSet(f, f2TList);
-							} else {
-								EObject f2TObject = targets.get(0).getValue();
-								obj.eSet(f, f2TObject);
 							}
 						}
 						else if(f2Value instanceof EList)
@@ -295,9 +299,11 @@ public class A2BTransformation {
 							Vector<EObject> f2TList = new Vector<EObject>();
 							for(EObject srcElement : f2List) {
 								TransientLink tlTemp = tLinkBySrcObj.get(srcElement);
-								EList<TransientElement> targets = tlTemp.getTargetElements();
-								for(TransientElement target : targets) {
-									f2TList.add(target.getValue());
+								if(tlTemp != null) {
+									EList<TransientElement> targets = tlTemp.getTargetElements();
+									for(TransientElement target : targets) {
+										f2TList.add(target.getValue());
+									}
 								}
 							}
 							
@@ -336,7 +342,7 @@ public class A2BTransformation {
 	private static void saveResource(EObject rootElement) throws IOException {
 		ResourceSet resourceSet = new ResourceSetImpl();
 		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("xmi", new XMIResourceFactoryImpl());
-		Resource resource = resourceSet.createResource(URI.createFileURI("testmodel/modelB.xmi"));
+		Resource resource = resourceSet.createResource(URI.createFileURI(targetModel));
 		resource.getContents().add(rootElement);
 		resource.save(null);
 	}

@@ -3,7 +3,7 @@
     xmlns:xmi="http://www.omg.org/XMI"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:a="http://a/1.0"
-    xsi:schemaLocation="http://a/1.0 AX.ecore">
+    xsi:schemaLocation="http://a/1.0 Book.ecore">
   <a name="a1"/>
   <a name="a2"/>
   <a name="a3"/>
@@ -11,9 +11,9 @@
       author="Dan Brown"
       published="2009"/>
   <x title="Eine Studie in Scharlachrot"
-      author=" Arthur Conan Doyle"
-      published="1887"/>
-  <x title="Die Biografie"
-      author="Steve Jobs"
-      published="2012"/>
+      author="Sir Arthur Conan Doyle"
+      published="2007"/>
+  <x title="Steve Jobs Die Biografie"
+      author="Walter Isaacson"
+      published="2011"/>
 </a:Model>

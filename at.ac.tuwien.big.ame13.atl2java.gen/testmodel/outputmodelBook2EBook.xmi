@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ASCII"?>
+<b:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:b="http://b/1.0">
+  <b id="a1"/>
+  <b id="a2"/>
+  <b id="a3"/>
+  <y label="Das letzte Symbol" info="Dan Brown" date="2009" category="Thriller"/>
+  <y label="Eine Studie in Scharlachrot" info="Sir Arthur Conan Doyle" date="2007" category="Thriller"/>
+  <y label="Steve Jobs Die Biografie" info="Walter Isaacson" date="2011" category="Thriller"/>
+</b:Model>

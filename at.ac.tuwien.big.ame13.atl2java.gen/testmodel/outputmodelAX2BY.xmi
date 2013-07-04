@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ASCII"?>
+<b:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:b="http://b/1.0">
+  <y xsi:type="b:B" id="a1"/>
+  <y label="x1"/>
+  <y xsi:type="b:B" id="a2"/>
+  <y label="x2"/>
+  <y xsi:type="b:B" id="a3"/>
+  <y label="x3"/>
+</b:Model>

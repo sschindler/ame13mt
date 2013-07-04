@@ -108,8 +108,8 @@ public class A2BTransformation {
 		
 		// contains the number of source elements defined by each input pattern type of this rule
 		sizeList = new ArrayList<Integer>();
-			Vector<EObject> srcElementsModel = sourceElements.get("Model");
-			sizeList.add(srcElementsModel.size());
+		Vector<EObject> srcElementsModel = sourceElements.get("Model");
+		sizeList.add(srcElementsModel.size());
 		Collections.sort(sizeList);
 		minSize = sizeList.get(0);
 
@@ -134,24 +134,24 @@ public class A2BTransformation {
 			tte.setVar("mb");
 			tl.getTargetElements().add(tte);
 			
-			if(rBindings.containsKey(trgObj)) {
-				rBHM = rBindings.get(trgObj);
-				// if there is already a resolve binding for this feature don't overwrite the existing value
-				if(!rBHM.containsKey("b")) {
+				if(rBindings.containsKey(trgObj)) {
+					rBHM = rBindings.get(trgObj);
+					// if there is already a resolve binding for this feature don't overwrite the existing value
+					if(!rBHM.containsKey("b")) {
+						rBHM.put("b", "ma.a");
+						rBindings.put(trgObj, rBHM);
+					}
+				} else {
+					rBHM = new HashMap<String,String>();
 					rBHM.put("b", "ma.a");
 					rBindings.put(trgObj, rBHM);
 				}
-			} else {
-				rBHM = new HashMap<String,String>();
-				rBHM.put("b", "ma.a");
-				rBindings.put(trgObj, rBHM);
-			}
 			tls.getTransientLinks().add(tl);
 		}
 		// contains the number of source elements defined by each input pattern type of this rule
 		sizeList = new ArrayList<Integer>();
-			Vector<EObject> srcElementsA = sourceElements.get("A");
-			sizeList.add(srcElementsA.size());
+		Vector<EObject> srcElementsA = sourceElements.get("A");
+		sizeList.add(srcElementsA.size());
 		Collections.sort(sizeList);
 		minSize = sizeList.get(0);
 
@@ -176,18 +176,18 @@ public class A2BTransformation {
 			tte.setVar("b");
 			tl.getTargetElements().add(tte);
 			
-			if(nBindings.containsKey(trgObj)) {
-				nBHM = nBindings.get(trgObj);
-				// if there is already a navigation binding for this feature don't overwrite the existing value
-				if(!nBHM.containsKey("id")) {
+				if(nBindings.containsKey(trgObj)) {
+					nBHM = nBindings.get(trgObj);
+					// if there is already a navigation binding for this feature don't overwrite the existing value
+					if(!nBHM.containsKey("id")) {
+						nBHM.put("id", "a.name");
+						nBindings.put(trgObj, nBHM);
+					}
+				} else {
+					nBHM = new HashMap<String,String>();
 					nBHM.put("id", "a.name");
 					nBindings.put(trgObj, nBHM);
 				}
-			} else {
-				nBHM = new HashMap<String,String>();
-				nBHM.put("id", "a.name");
-				nBindings.put(trgObj, nBHM);
-			}
 			tls.getTransientLinks().add(tl);
 		}
 		

@@ -135,89 +135,89 @@ class Atl2javaGenerator implements IGenerator {
 			HashMap<EObject,TransientLink> tLinkBySrcObj = new HashMap<EObject,TransientLink>();
 			
 			«FOR Rule rule : t.rules»
-			// contains the number of source elements defined by each input pattern type of this rule
-			sizeList = new ArrayList<Integer>();
+				// contains the number of source elements defined by each input pattern type of this rule
+				sizeList = new ArrayList<Integer>();
 				«FOR InputPatternElement ipe : rule.inputPattern.inputPatternElements»
 				Vector<EObject> srcElements«ipe.type» = sourceElements.get("«ipe.type»");
 				sizeList.add(srcElements«ipe.type».size());
 				«ENDFOR»
-			Collections.sort(sizeList);
-			minSize = sizeList.get(0);
+				Collections.sort(sizeList);
+				minSize = sizeList.get(0);
 
-			for(int i = 0; i < minSize; i++) {
-				// further problem: how should we know which input element we should take, e.g. for the binding (if we have several input pattern elements;
-				// just the smallest occurrences of the input elements are matched)
-				
-				tl = tFactory.createTransientLink();
-				
-				// saving all transient source elements in the link
-				«FOR InputPatternElement ipe : rule.inputPattern.inputPatternElements»
-				srcObj = srcElements«ipe.type».get(i);
-				tse = tFactory.createTransientElement();
-				tse.setValue(srcObj);
-				tse.setVar("«ipe.name»");
-				tl.getSourceElements().add(tse);
-				tLinkBySrcObj.put(srcObj, tl);
-				«ENDFOR»
-				
-				// creating all target elements and saving the transient target elements in the link
-				«FOR OutputPatternElement ope : rule.outputPattern.outputPatternElements»
-				trgObj = createTargetElement(trgMM, "«ope.type»");
-				tte = tFactory.createTransientElement();
-				tte.setValue(trgObj);
-				tte.setVar("«ope.name»");
-				tl.getTargetElements().add(tte);
-				
-				«FOR Binding binding : ope.bindings»
-				«IF binding instanceof PrimitiveBinding»
-				pBF = trgObj.eClass().getEStructuralFeature("«binding.feature»");
-				trgObj.eSet(pBF, "«(binding as PrimitiveBinding).value»");
-				«ELSEIF binding instanceof NavigationBinding»
-				«IF binding instanceof ResolveBinding»
-				if(rBindings.containsKey(trgObj)) {
-					rBHM = rBindings.get(trgObj);
-					// if there is already a resolve binding for this feature don't overwrite the existing value
-					if(!rBHM.containsKey("«binding.feature»")) {
-						rBHM.put("«binding.feature»", "«(binding as ResolveBinding).inputPatternElement.name».«(binding as ResolveBinding).value»");
-						rBindings.put(trgObj, rBHM);
-					}
-				} else {
-					rBHM = new HashMap<String,String>();
-					rBHM.put("«binding.feature»", "«(binding as ResolveBinding).inputPatternElement.name».«(binding as ResolveBinding).value»");
-					rBindings.put(trgObj, rBHM);
+				for(int i = 0; i < minSize; i++) {
+					// further problem: how should we know which input element we should take, e.g. for the binding (if we have several input pattern elements;
+					// just the smallest occurrences of the input elements are matched)
+					
+					tl = tFactory.createTransientLink();
+					
+					// saving all transient source elements in the link
+					«FOR InputPatternElement ipe : rule.inputPattern.inputPatternElements»
+					srcObj = srcElements«ipe.type».get(i);
+					tse = tFactory.createTransientElement();
+					tse.setValue(srcObj);
+					tse.setVar("«ipe.name»");
+					tl.getSourceElements().add(tse);
+					tLinkBySrcObj.put(srcObj, tl);
+					«ENDFOR»
+					
+					// creating all target elements and saving the transient target elements in the link
+					«FOR OutputPatternElement ope : rule.outputPattern.outputPatternElements»
+					trgObj = createTargetElement(trgMM, "«ope.type»");
+					tte = tFactory.createTransientElement();
+					tte.setValue(trgObj);
+					tte.setVar("«ope.name»");
+					tl.getTargetElements().add(tte);
+					
+						«FOR Binding binding : ope.bindings»
+							«IF binding instanceof PrimitiveBinding»
+							pBF = trgObj.eClass().getEStructuralFeature("«binding.feature»");
+							trgObj.eSet(pBF, "«(binding as PrimitiveBinding).value»");
+							«ELSEIF binding instanceof NavigationBinding»
+							«IF binding instanceof ResolveBinding»
+							if(rBindings.containsKey(trgObj)) {
+								rBHM = rBindings.get(trgObj);
+								// if there is already a resolve binding for this feature don't overwrite the existing value
+								if(!rBHM.containsKey("«binding.feature»")) {
+									rBHM.put("«binding.feature»", "«(binding as ResolveBinding).inputPatternElement.name».«(binding as ResolveBinding).value»");
+									rBindings.put(trgObj, rBHM);
+								}
+							} else {
+								rBHM = new HashMap<String,String>();
+								rBHM.put("«binding.feature»", "«(binding as ResolveBinding).inputPatternElement.name».«(binding as ResolveBinding).value»");
+								rBindings.put(trgObj, rBHM);
+							}
+							«ELSE»
+							if(nBindings.containsKey(trgObj)) {
+								nBHM = nBindings.get(trgObj);
+								// if there is already a navigation binding for this feature don't overwrite the existing value
+								if(!nBHM.containsKey("«binding.feature»")) {
+									nBHM.put("«binding.feature»", "«(binding as NavigationBinding).inputPatternElement.name».«(binding as NavigationBinding).value»");
+									nBindings.put(trgObj, nBHM);
+								}
+							} else {
+								nBHM = new HashMap<String,String>();
+								nBHM.put("«binding.feature»", "«(binding as NavigationBinding).inputPatternElement.name».«(binding as NavigationBinding).value»");
+								nBindings.put(trgObj, nBHM);
+							}
+							«ENDIF»
+							«ELSEIF binding instanceof OutputpatternElementBinding»
+							if(oPEBindings.containsKey(trgObj)) {
+								oPEBHM = oPEBindings.get(trgObj);
+								// if there is already a output pattern element binding for this feature don't overwrite the existing value
+								if(!oPEBHM.containsKey("«binding.feature»")) {
+									oPEBHM.put("«binding.feature»", "«(binding as OutputpatternElementBinding).value.name»");
+									oPEBindings.put(trgObj, oPEBHM);
+								}
+							} else {
+								oPEBHM = new HashMap<String,String>();
+								oPEBHM.put("«binding.feature»", "«(binding as OutputpatternElementBinding).value.name»");
+								oPEBindings.put(trgObj, oPEBHM);
+							}
+							«ENDIF»
+						«ENDFOR»
+					«ENDFOR»
+					tls.getTransientLinks().add(tl);
 				}
-				«ELSE»
-				if(nBindings.containsKey(trgObj)) {
-					nBHM = nBindings.get(trgObj);
-					// if there is already a navigation binding for this feature don't overwrite the existing value
-					if(!nBHM.containsKey("«binding.feature»")) {
-						nBHM.put("«binding.feature»", "«(binding as NavigationBinding).inputPatternElement.name».«(binding as NavigationBinding).value»");
-						nBindings.put(trgObj, nBHM);
-					}
-				} else {
-					nBHM = new HashMap<String,String>();
-					nBHM.put("«binding.feature»", "«(binding as NavigationBinding).inputPatternElement.name».«(binding as NavigationBinding).value»");
-					nBindings.put(trgObj, nBHM);
-				}
-				«ENDIF»
-				«ELSEIF binding instanceof OutputpatternElementBinding»
-				if(oPEBindings.containsKey(trgObj)) {
-					oPEBHM = oPEBindings.get(trgObj);
-					// if there is already a output pattern element binding for this feature don't overwrite the existing value
-					if(!oPEBHM.containsKey("«binding.feature»")) {
-						oPEBHM.put("«binding.feature»", "«(binding as OutputpatternElementBinding).value.name»");
-						oPEBindings.put(trgObj, oPEBHM);
-					}
-				} else {
-					oPEBHM = new HashMap<String,String>();
-					oPEBHM.put("«binding.feature»", "«(binding as OutputpatternElementBinding).value.name»");
-					oPEBindings.put(trgObj, oPEBHM);
-				}
-				«ENDIF»
-				«ENDFOR»
-				«ENDFOR»
-				tls.getTransientLinks().add(tl);
-			}
 			«ENDFOR»
 			
 			/**

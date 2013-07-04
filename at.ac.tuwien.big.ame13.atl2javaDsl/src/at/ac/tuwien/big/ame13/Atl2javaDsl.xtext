@@ -47,7 +47,7 @@ InputPattern returns InputPattern:
 OutputPattern returns OutputPattern:
 	{OutputPattern}
 	
-		outputPatternElements+=OutputPatternElement ( "," outputPatternElements+=OutputPatternElement)?  
+		outputPatternElements+=OutputPatternElement ( "," outputPatternElements+=OutputPatternElement)*  
 	;
 
 InputPatternElement returns InputPatternElement:
@@ -56,7 +56,7 @@ InputPatternElement returns InputPatternElement:
 
 OutputPatternElement returns OutputPatternElement:
 	 name=ID':'metamodel=[TargetModel]'!'type=EString '('
-		bindings+=Binding ( "," bindings+=Binding)?
+		bindings+=Binding ( "," bindings+=Binding)*
 	')';
 
 PrimitiveBinding returns PrimitiveBinding:
